@@ -6,20 +6,16 @@
 */
 class Cliente extends Pessoa
 {
-  protected $cpfCliente;
-  protected $agendaCliente;
-  protected $pontosCliente;
+  protected $tabela = "CLIENTE";
+  protected $cpf;
+  protected $agenda;
 
-  function __construct($cpfCliente, $agendaCliente, $pontosCliente)
+  public function __construct()
   {
-    parent::__construct($idPessoa, $nomePessoa, $endPessoa, $telefonePessoa,
-    $usuarioPessoa, $senhaPessoa, $cpfCliente, $agendaCliente, $pontosCliente);
-
-    $this->cpfCliente = $cpfCliente;
-    $this->agendaCliente = $agendaCliente;
-    $this->pontosCliente = $pontosCliente;
+    parent::__construct();
   }
-}
+
+  }
 
 
 

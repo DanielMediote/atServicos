@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="./css/master.css">
+  <link rel="stylesheet" href="../css/master.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Serviços Online</title>
@@ -22,6 +22,7 @@
     include_once 'paginas/navBar.php';
     include_once 'paginas/inicio.php';
     include_once 'paginas/footer.php';
+
     ?>
   </div>
 </body>
