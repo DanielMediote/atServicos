@@ -1,0 +1,12 @@
+
+# font http://blog.thiagobelem.net/aprendendo-urls-amigaveis
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^/?$ /index.php [NC,L]
+  RewriteRule ^home/?$ /index.php [NC,L]
+  RewriteRule ^cadastro/cliente?$ /view/paginas/cadastropage.php [NC,L]
+  RewriteRule ^login?$ /view/paginas/loginpage.php [NC,L]
+
+</IfModule>
