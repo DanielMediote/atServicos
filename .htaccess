@@ -6,7 +6,7 @@
 
   RewriteRule ^/?$ /index.php [NC,L]
   RewriteRule ^home/?$ /index.php [NC,L]
-  RewriteRule ^cadastro/cliente?$ /view/paginas/cadastropage.php [NC,L]
-  RewriteRule ^login?$ /view/paginas/loginpage.php [NC,L]
+  RewriteRule ^cadastro/?$ /pages/cadastro.php [NC,L]
+  RewriteRule ^teste/?$ /pages/teste.php [NC,L]
 
 </IfModule>
