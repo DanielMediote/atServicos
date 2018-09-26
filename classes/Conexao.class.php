@@ -3,7 +3,7 @@
 final class Conexao
 {
 
-  private function __construct()
+  public function __construct()
   {
   }
 
@@ -30,8 +30,8 @@ final class Conexao
     try {
       switch (base) {
         case 'mysql':
-        $conn = new PDO('mysql:host=' . host . 'port=' . port . ';dbname=' . data, user, pass,
-        array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES uft8'));
+        $conn = new PDO("mysql:dbname=".data."; host=".host."; port=".port, user, pass,
+        array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
         break;
 
         case 'pgsql':
@@ -42,14 +42,12 @@ final class Conexao
         $conn = new PDO('mssql:host=' . host . ',' . port . ';' . 'dbname=' . data, user, pass);
         break;
       }
-      
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-
-      return $conn;
     } catch (PDOException $e) {
       echo "Erro " . $e->getMessage();
     }
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+    return $conn;
   }
 
   public static function prepare($sql)

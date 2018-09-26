@@ -4,11 +4,11 @@
 	<title>Pagina de Teste</title>
 </head>
 <body>
-	<?php  
-	include_once __DIR__ . '/../php/autoload.php';
-	
-
-	?>
+	<form method="post">
+		<!-- <input type="button" name="logar" value="Logar"> -->
+		<button type="submit" name="logar">Log in
+		</button>
+		<!-- <a href="">Logar</a> -->
+	</form>
 </body>
 </html>
-

@@ -1,4 +1,4 @@
-  <?php
+<?php
 
 // Classe do tipo final
 
@@ -11,52 +11,39 @@ abstract class Crud
   DELETE
   */
 
-  protected $tabela;
-
-
-  // Criação de 2 métodos abstratos que serão instânciados pelas classes herdeiras
-  // abstract public function readAll();
+  abstract function updateForeignKey($id);
 
   public function insert(){
-    // $keysArray = array_keys($this->getAtributos());
-    // $valueArray = array_values($this->getAtributos());
-    // $campos = implode(", ", array_filter($keysArray,function($res){
-    // return !in_array($res, array('tabela', 'id'));
-    // }, ARRAY_FILTER_USE_BOTH));
-    // $valores = implode("', '",array_filter($valueArray,function($res){
-    //   return !in_array($res, array(0, 4));
-    // }, ARRAY_FILTER_USE_BOTH));
-
-    $sqlInsert = "INSERT INTO {$this->tabela}(";
+    $sqlQuery = "INSERT INTO {$this->tabela}(";
     foreach ($this->getAtributos() as $key => $value) {
-      if (in_array($key, array('tabela', 'id'))) continue;
-      $sqlInsert .= $key;
-      $sqlInsert .= ($key != end(array_keys($this->getAtributos())))? ", " : "";
+      if (in_array($key, array('tabela', 'id' , 'id_pessoa'))) continue;
+      $sqlQuery .= $key;
+      $sqlQuery .= ($key != end(array_keys($this->getAtributos())))? ", " : "";
     }
-    $sqlInsert .= ") VALUES(";
+    $sqlQuery .= ") VALUES(";
     foreach ($this->getAtributos() as $key => $value) {
-      if (in_array($key, array('tabela', 'id'))) continue;
+      if (in_array($key, array('tabela', 'id', 'id_pessoa'))) continue;
       $type = gettype($value);
-      $sqlInsert .= (in_array($type, array('integer', 'double', 'boolean'))) ?
+      $sqlQuery .= (in_array($type, array('integer', 'double', 'boolean'))) ?
       "{$value}" : "'{$value}'";
-      $sqlInsert .= ($value != end($this->getAtributos()))? ", " : "";
+      $sqlQuery .= ($value != end($this->getAtributos()))? ", " : "";
     }
-    $sqlInsert .= ");";
-    // print($sqlInsert);
-    $stmp = Conexao::prepare($queryInsert);
-    $stmp->execute();
-  }
-
-  public function search($value){
-    $sqlQuery = "SELECT * FROM {$this->tabela} WHERE :id = {$value}";
+    $sqlQuery .= ");";
+    echo $sqlQuery . "<br>";
     $stmp = Conexao::prepare($sqlQuery);
-    $stmp->bindParam(':id',$this->id, PARAM_INT);
     $stmp->execute();
-    return $smtp->fetchAll();
   }
 
-  public function delete($valor){
-    $sqlQuery = "DELETE {$this->tabela} WHERE id = {$valor}";
+  public function search($id){
+    $sqlQuery = "SELECT * FROM {$this->tabela} WHERE :id = {$id}";
+    echo "";
+    // $stmp = Conexao::prepare($sqlQuery);
+    // $stmp->execute();
+    // return $smtp->fetch();
+  }
+
+  public function delete($id){
+    $sqlQuery = "DELETE {$this->tabela} WHERE id = {$id}";
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
@@ -75,10 +62,8 @@ abstract class Crud
     $sqlQuery .= $set;
     $sqlQuery .= " WHERE {$coluna} = {$valor}";
     echo $sqlQuery;
-    // echo end($this->getAtributos());
-    // $stmp = Conexao::prepare($sqlQuery);
-    // $stmp->bindParam(':id',$this->id,PARAM_INT);
-    // $stmp->execute();
+    $stmp = Conexao::prepare($sqlQuery);
+    $stmp->execute();
   }
 
   public function get($atributo){
@@ -89,8 +74,21 @@ abstract class Crud
     }
   }
 
+  public function getAll(){
+    foreach ($this->getAtributos() as $key => $value) {
+      echo "[".$key."] = ". $value ."\n <br>";
+    }
+  }
+
   public function set($atributo, $valor){
     return $this->$atributo = $valor;
+  }
+
+  public function setAll($dados){
+    foreach ($this->getAtributos() as $atributo => $value) {
+      if (in_array($atributo, array('tabela', 'id'))) continue;
+      $this->set($atributo,$dados[$atributo]);
+    }
   }
 
   public function getAtributos(){

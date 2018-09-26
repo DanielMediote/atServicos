@@ -23,32 +23,40 @@ function validarSenha(){
 //  }
 
 
- $(document).ready(function() {
-  $('#enviar').on('click', function() {
-    var data = $("input[name=data").val();
-    alert(data);
-    var dados = {};
+function prosseguir() {
+  var termsOK = $('#terms').is(':checked');
+  if (termsOK) {
+    $('#enviar').css('display', 'block');
+  }else {
+    $('#enviar').css('display', 'none');
+  }
+}
 
+
+
+$(document).ready(function() {
+  $('#enviar').on('click', function() {
+    var dados = {};
+    var genero = $("#genero").val();
+    dados['genero'] = genero;
     $('#formulario').each(function() {
       var formulario = $(this);
       formulario.find('input').each(function() {
         var name = $(this).attr('name');
-        var atributo = $(formulario).find("input[name="+name+"]").val();
-        dados[name] = atributo;
+        var valor = $(formulario).find("input[name="+name+"]").val();
+        dados[name] = valor;
       });
     });
     // dados['pathFile'] = getBase64($('[name=pathFile]')[0].files[0]);
-
-    console.log(dados);
     $.ajax({
-      url: 'http://www.servicos-online.com.br/paginas/sendToDatabase.php',
+      url: '../php/cadastrarCliente.php',
       type: 'post',
-      data: dados,
+      data: {dados : dados},
       success:function(res) {
         console.log(res)
       },
       error: function(erro){
-        console.log(erro);
+        console.log(erro)
       }
     });
   });
