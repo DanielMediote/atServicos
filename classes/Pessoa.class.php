@@ -27,8 +27,7 @@ class Pessoa extends Crud
     // echo "Você instânciou um(a) " .get_class($this) ."\n";
   }
 
-  public function readAll()
-  {
+  public function readAll(){
     $sqlQuery = "SELECT * FROM {$this->tabela}";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
@@ -41,8 +40,7 @@ class Pessoa extends Crud
     $stmt->execute();
   }
 
-  public function getPessoaId()
-  {
+  public function getPessoaId(){
     $sqlQuery = "SELECT id FROM {$this->tabela} WHERE pes_email = '".$this->pes_email."'";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
@@ -50,9 +48,10 @@ class Pessoa extends Crud
     return $res['id'];
   }
 
-  public function logarPessoa($nome, $senha)
-  {
-
+  public function logarPessoa($nome, $senha){
+    $sqlQuery = "CALL logarPessoa('{$this->tabela}','{$nome}','{$senha}');";
+    $stmt = Conexao::prepare($sqlQuery);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
   }
-
 }

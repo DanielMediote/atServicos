@@ -11,22 +11,22 @@ abstract class Crud
   DELETE
   */
 
-  abstract function updateForeignKey($id);
+  abstract function readAll();
 
   public function insert(){
     $sqlQuery = "INSERT INTO {$this->tabela}(";
-    foreach ($this->getAtributos() as $key => $value) {
+    foreach ($this->getAll() as $key => $value) {
       if (in_array($key, array('tabela', 'id' , 'id_pessoa'))) continue;
       $sqlQuery .= $key;
-      $sqlQuery .= ($key != end(array_keys($this->getAtributos())))? ", " : "";
+      $sqlQuery .= ($key != end(array_keys($this->getAll())))? ", " : "";
     }
     $sqlQuery .= ") VALUES(";
-    foreach ($this->getAtributos() as $key => $value) {
+    foreach ($this->getAll() as $key => $value) {
       if (in_array($key, array('tabela', 'id', 'id_pessoa'))) continue;
       $type = gettype($value);
       $sqlQuery .= (in_array($type, array('integer', 'double', 'boolean'))) ?
       "{$value}" : "'{$value}'";
-      $sqlQuery .= ($value != end($this->getAtributos()))? ", " : "";
+      $sqlQuery .= ($value != end($this->getAll()))? ", " : "";
     }
     $sqlQuery .= ");";
     echo $sqlQuery . "<br>";
@@ -51,13 +51,13 @@ abstract class Crud
   public function update($coluna, $valor){
     $sqlQuery = "UPDATE {$this->tabela} SET ";
     $set = "";
-    foreach ($this->getAtributos() as $key => $value) {
+    foreach ($this->getAll() as $key => $value) {
       if (in_array($key, array('tabela', 'id'))) continue;
       $set .= "{$key} = ";
       $type = gettype($value);
       $set .= (in_array($type, array('integer', 'double', 'boolean'))) ?
       "{$value}" : "'{$value}'";
-      $set .= ($value != end($this->getAtributos()))? ", " : " ";
+      $set .= ($value != end($this->getAll()))? ", " : " ";
     }
     $sqlQuery .= $set;
     $sqlQuery .= " WHERE {$coluna} = {$valor}";
@@ -75,7 +75,11 @@ abstract class Crud
   }
 
   public function getAll(){
-    foreach ($this->getAtributos() as $key => $value) {
+    return get_object_vars($this);
+  }
+  
+  public function getDetalhes(){
+    foreach ($this->getAll() as $key => $value) {
       echo "[".$key."] = ". $value ."\n <br>";
     }
   }
@@ -85,15 +89,12 @@ abstract class Crud
   }
 
   public function setAll($dados){
-    foreach ($this->getAtributos() as $atributo => $value) {
+    foreach ($this->getAll() as $atributo => $value) {
       if (in_array($atributo, array('tabela', 'id'))) continue;
       $this->set($atributo,$dados[$atributo]);
     }
   }
 
-  public function getAtributos(){
-    return get_object_vars($this);
-  }
 
 }
 

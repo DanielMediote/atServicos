@@ -1,0 +1,114 @@
+body, html{
+  /*background-image: url("../img/loginHeader.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;*/
+  background-color: #b1f8ff;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h2{
+  color: #E8F3FF;
+}
+
+form {
+  /*left: 50%;*/
+  /*transform: translateX(-50%);*/
+  font-size: 1em;
+  position: relative;
+  width: 100%;
+  top: 5%;
+  height: 100%;
+  align-items: flex;
+  padding: 5em 5em;
+  background-color: rgba(0, 0, 0, 0.30);
+}
+.input-group{
+  position: relative;
+  width: 100%;
+}
+.input-group i{
+  position: absolute;
+  color: #E8F3FF;
+  left: 1%;
+  margin-top: 13px;
+  opacity: 0.7;
+}
+.linha{
+  position: absolute;
+  left: 30px;
+  top: -1px;
+  border-right: 2px solid #E8F3FF;
+  height: 20px;
+}
+
+.input-group-col{
+  display: flex;
+}
+
+.input-group-col label{
+  display: block;
+}
+
+label{
+  margin-top: 15px;
+  display: block;
+  padding: .3em;
+  color: #E8F3FF;
+}
+
+.input-group .cadastro-input{
+  font-size: 1em;
+  padding: 0.5em;
+  padding-left: 4em;
+  border-radius: 2px;
+  position: relative;
+  color: #fff;
+  border: 2px solid transparent;
+  background-color: rgba(20, 20, 20, 0.54);
+  transition: ease-in .2s;
+}
+
+.cadastro-input:focus{
+  border: 2px solid #E8F3FF;
+}
+
+#enviar{
+  position: absolute;
+  /*margin-top: -2em;*/
+  padding: 1em;
+  float: right;
+  right: 30%;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  background-color: rgb(48, 48, 48);
+  width: 200px;
+  transition: 150ms ease-in;
+  text-transform: uppercase;
+}
+
+#enviar:hover{
+  border: 1px solid #fff;
+  background-color: #4c6163;
+  color: #fff;
+}
+
+select{
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 2px;
+  position: relative;
+  margin-top: 2em;
+  margin-right: 1em;
+  color: #fff;
+  border: 2px solid transparent;
+  background-color: rgba(20, 20, 20, 0.54);
+  width: 200px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}

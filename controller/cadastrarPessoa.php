@@ -1,9 +1,9 @@
 <?php
-require_once __DIR__ . '/../php/autoload.php';
+require_once __DIR__ . '/../controller/autoload.php';
 $dados = $_POST['dados'];
-$pessoa = new Pessoa();
-$cliente = new Cliente();
-$prestador = new Prestador();
+// $pessoa = new Pessoa();
+// $cliente = new Cliente();
+// $prestador = new Prestador();
 
 // $pessoa->setAll($dados);
 // $pessoa->insert();

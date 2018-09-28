@@ -9,7 +9,6 @@ function validarSenha(){
   }
 }
 
-
 // function getBase64(file) {
 //  var reader = new FileReader();
 //  reader.readAsDataURL(file);
@@ -22,7 +21,6 @@ function validarSenha(){
 //    return reader;
 //  }
 
-
 function prosseguir() {
   var termsOK = $('#terms').is(':checked');
   if (termsOK) {
@@ -32,32 +30,34 @@ function prosseguir() {
   }
 }
 
-
-
 $(document).ready(function() {
   $('#enviar').on('click', function() {
     var dados = {};
-    var genero = $("#genero").val();
-    dados['genero'] = genero;
     $('#formulario').each(function() {
       var formulario = $(this);
       formulario.find('input').each(function() {
         var name = $(this).attr('name');
-        var valor = $(formulario).find("input[name="+name+"]").val();
+        var valor = $(this).val();
+        dados[name] = valor;
+      });
+      formulario.find('select').each(function() {
+        var name = $(this).attr('name');
+        var valor = $(this).val();
         dados[name] = valor;
       });
     });
+    console.log(dados);
     // dados['pathFile'] = getBase64($('[name=pathFile]')[0].files[0]);
-    $.ajax({
-      url: '../php/cadastrarCliente.php',
-      type: 'post',
-      data: {dados : dados},
-      success:function(res) {
-        console.log(res)
-      },
-      error: function(erro){
-        console.log(erro)
-      }
-    });
+    // $.ajax({
+    //   url: '../controller/cadastrarPessoa.php',
+    //   type: 'post',
+    //   data: {dados : dados},
+    //   success:function(res) {
+    //     console.log(res)
+    //   },
+    //   error: function(erro){
+    //     console.log(erro)
+    //   }
+    // });
   });
 });

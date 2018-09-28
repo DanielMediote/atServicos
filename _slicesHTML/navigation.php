@@ -1,32 +1,47 @@
 <link rel="stylesheet" href="../css/navigation.css">
 <nav class='main-nav animated flipInX'>
   <ul>
-    <?php if ($_SESSION['logado']): ?>
+    <?php if ($_SESSION['status']): ?>
       <li><a id="toggleMenu"><div class='fa fa-align-left'></div></a></li>
     <?php endif; ?>
     <li><a href='/home'><div class='fa fa-home'></div></a></li>
-    <?php if ($_SESSION['logado']): ?>
+    <?php if ($_SESSION['status']): ?>
     <?php else: ?>
-      <li><a id="login">Login</a></li>
+      <li><a id="open-modal">Login</a></li>
     <?php endif; ?>
     <li class='sub-menu'>
       <a>Explorar <i class='fa fa-angle-down'></i></a>
       <ul>
-        <li><a href='#'>Servicos</a></li>
-        <li><a href='#'>Prestadores</a></li>
-        <li><a href='#'>Clientes</a></li>
+        <li><a href='/cadastro'>Cadastro</a></li>
+        <li><a href='/administradores'>Administradores</a></li>
+        <li><a href='/clientes'>Clientes</a></li>
+        <li><a href='/prestadores'>Prestadores</a></li>
       </ul>
     </li>
     <li class='sub-menu'>
-      <a>Serviços <i class='fa fa-angle-down'></i></a>
+      <a>Portal de Serviços <i class='fa fa-angle-down'></i></a>
       <ul>
-        <li><a href='#'>Por Categoria</a></li>
-        <li><a href='#'>Por Custo</a></li>
-        <li><a href='#'>Por Avaliação</a></li>
+        <li><a href='#'>Categorias</a></li>
+        <li><a href='#'>Beneficios</a></li>
+        <li><a href='#'>Avaliação</a></li>
       </ul>
     </li>
-    <li><a href='/cadastro'>Cadastro</a></li>
   </ul>
+  <div class="status-display">
+    <?php if ($_SESSION['status']): ?>
+      <div class="circle green">
+      </div>
+      <p>
+        Online
+      </p>
+    <?php else: ?>
+      <div class="circle red">
+      </div>
+      <p>
+        Offline
+      </p>
+    <?php endif; ?>
+  </div>
 </nav>
 
 
@@ -41,11 +56,9 @@
     <div class="loginmodal-container">
       <button class="btn-close-modal" type="button" id="close-modal"><i class="fas fa-times"></i></button>
       <h1>Login</h1><br>
-      <form action="/home" method="post">
-        <input type="text" name="user" placeholder="Username">
-        <input type="password" name="pass" placeholder="Password">
-        <input type="submit" name="logar" class="login loginmodal-submit" value="Login">
-      </form>
+      <input class="input-login" id="userLogin" type="text" name="username" placeholder="Username">
+      <input class="input-login" id="passLogin" type="password" name="password" placeholder="Password">
+      <input type="submit" name="" id="logarPessoa" class="login loginmodal-submit submit-login" value="Login">
       <div class="login-help">
         <a href="#">Register</a> - <a href="#">Forgot Password</a>
       </div>
@@ -54,24 +67,18 @@
 </div>
 
 
-
-
-
-
-
-
 <!-- barra de navegação lateral -->
 
 <div class="user-menu">
-  <?php if ($_SESSION['logado']): ?>
+  <?php if ($_SESSION['status']): ?>
     <div class="menu-header">
       <div class="container">
         <div class="profile-card">
           <div class="avatar">
           </div>
-          <h3 class="name">Username</h3>
+          <h3 class="name"><?=$_SESSION['pes_nome']?></h3>
           <h4 class="role">Software Developer</h4>
-          <h5 class="nick">@useremail</h5>
+          <h5 class="nick"><?=$_SESSION['pes_email']?></h5>
         </div>
       </div>
     </div>
@@ -98,17 +105,14 @@
             </a>
             <ul>
               <li><a href='#settings'>FAQ's</a></li>
-              <li><a href='#settings'>Reportar Erro</a></li>
+              <li><a href='#settings'>Reportar Bug</a></li>
               <li><a href='#settings'>Forum</a></li>
             </ul>
           </li>
           <li>
-            <form class="" action="/home" method="post">
-              <a href="#">
-                <div class='fa fa-sign-out-alt'></div>
-                <button type="submit" name="logoff">Logout</button>
-              </a>
-            </form>
+            <a id="logoffPessoa" style="cursor: pointer;">
+              <div class='fa fa-sign-out-alt'></div>Logout
+            </a>
           </li>
         </ul>
       </nav>
