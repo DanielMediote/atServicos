@@ -34,14 +34,14 @@ form {
 .input-group i{
   position: absolute;
   color: #E8F3FF;
-  left: 1%;
+  left: 20px;
   margin-top: 13px;
   opacity: 0.7;
 }
 .linha{
-  position: absolute;
-  left: 30px;
-  top: -1px;
+  position: relative;
+  left: 15px;
+  margin-top: -17px;
   border-right: 2px solid #E8F3FF;
   height: 20px;
 }
@@ -68,7 +68,7 @@ label{
   border-radius: 2px;
   position: relative;
   color: #fff;
-  border: 2px solid transparent;
+  border: 2px solid rgba(232, 243, 255, 0.50);
   background-color: rgba(20, 20, 20, 0.54);
   transition: ease-in .2s;
 }
@@ -78,6 +78,7 @@ label{
 }
 
 #enviar{
+  display: none;
   position: absolute;
   /*margin-top: -2em;*/
   padding: 1em;
@@ -111,4 +112,38 @@ select{
   width: 200px;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+.upload-photo {
+  margin-top: 30px;
+  width: 150px;
+  height: 150px;
+  border: 5px solid #E8F3FF;
+  border-radius: 1000px;
+  text-align: center;
+  line-height: 180px;
+  color: white;
+  background-color: transparent;
+  background-size: cover;
+}
+.upload-photo:hover{
+  cursor: pointer;
+  background-color: rgba(232, 243, 255, 0.31);
+}
+
+#id_photo{
+  display: none;
+}
+
+.termos{
+  color: rgb(255, 226, 194);
+  position: relative;
+  padding: 2em 0em;
+}
+.termos u{
+  color: rgb(150, 205, 192);
+}
+.termos u:hover{
+  cursor: pointer;
+  color: rgb(96, 182, 162);
 }

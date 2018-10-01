@@ -1,22 +1,31 @@
 <?php
-require_once __DIR__ . '/../controller/autoload.php';
-$dados = $_POST['dados'];
-// $pessoa = new Pessoa();
-// $cliente = new Cliente();
-// $prestador = new Prestador();
+require_once 'autoload.php';
+$dados = json_decode(stripslashes($_POST['dados']), true);
+// $file = $_FILES['imagem'];
+$dados['senha'] = md5($dados['senha']);
+// $arquivo = new File($file);
+// $arquivo->detalhesFile();
+// foreach ($dados as $key => $value) {
+//   echo $key . " = ".$value."\n";
+// }
 
-// $pessoa->setAll($dados);
-// $pessoa->insert();
-// $id_pessoa = $pessoa->getPessoaId();
-//
-//
-// $cliente->setAll($dados);
-// $cliente->insert();
-// $cliente->updateForeignKey($id_pessoa);
-//
-// $prestador->setAll($dados);
-// $prestador->insert();
-// $prestador->updateForeignKey($id_pessoa);
+$pessoa = new Pessoa();
+$cliente = new Cliente();
+$prestador = new Prestador();
+$admin = new Administrador();
 
+if ($_SESSION['ocupacao'] == 'Administrador') {
+  $admin->cadastrarPrestador($dados, $pessoa, $prestador);
+}else {
+  $pessoa->setAll($dados);
+  $pessoa->insert();
+  // $pessoa->getDetalhes();
+  $id_pessoa = $pessoa->getPessoaId();
+  $cliente->setAll($dados);
+  $cliente->insert();
+  // $cliente->getDetalhes();
+  $pessoa->updateOne('ocupacao', get_class($cliente));
+  $cliente->updateForeignKey($id_pessoa);
+}
 
 ?>

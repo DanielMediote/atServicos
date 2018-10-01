@@ -35,7 +35,7 @@ $(document).ready(function() {
     cookie['password'] = pass.val();
     cookie['sessao'] = "online";
     $.ajax({
-      url: '../session-config.php',
+      url: '../controller/session-config.php',
       type: 'post',
       data: {cookie : cookie}
     })
@@ -57,7 +57,7 @@ $(document).ready(function() {
   $('#logoffPessoa').click(function() {
     cookie['sessao'] = "offline";
     $.ajax({
-      url: '../session-config.php',
+      url: '../controller/session-config.php',
       type: 'post',
       data: {cookie : cookie}
     })

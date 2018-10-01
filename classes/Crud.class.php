@@ -1,7 +1,5 @@
 <?php
 
-// Classe do tipo final
-
 abstract class Crud
 {
   /*
@@ -16,30 +14,30 @@ abstract class Crud
   public function insert(){
     $sqlQuery = "INSERT INTO {$this->tabela}(";
     foreach ($this->getAll() as $key => $value) {
-      if (in_array($key, array('tabela', 'id' , 'id_pessoa'))) continue;
+      if (in_array($key, array('tabela', 'id' , 'id_pessoa', 'ocupacao'))) continue;
       $sqlQuery .= $key;
       $sqlQuery .= ($key != end(array_keys($this->getAll())))? ", " : "";
     }
+
     $sqlQuery .= ") VALUES(";
     foreach ($this->getAll() as $key => $value) {
-      if (in_array($key, array('tabela', 'id', 'id_pessoa'))) continue;
+      if (in_array($key, array('tabela', 'id', 'id_pessoa', 'ocupacao'))) continue;
       $type = gettype($value);
       $sqlQuery .= (in_array($type, array('integer', 'double', 'boolean'))) ?
       "{$value}" : "'{$value}'";
       $sqlQuery .= ($value != end($this->getAll()))? ", " : "";
     }
     $sqlQuery .= ");";
-    echo $sqlQuery . "<br>";
+    // echo $sqlQuery . "\n";
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
 
   public function search($id){
     $sqlQuery = "SELECT * FROM {$this->tabela} WHERE :id = {$id}";
-    echo "";
-    // $stmp = Conexao::prepare($sqlQuery);
-    // $stmp->execute();
-    // return $smtp->fetch();
+    $stmp = Conexao::prepare($sqlQuery);
+    $stmp->execute();
+    return $smtp->fetch();
   }
 
   public function delete($id){
@@ -48,7 +46,7 @@ abstract class Crud
     $stmp->execute();
   }
 
-  public function update($coluna, $valor){
+  public function updateAll(){
     $sqlQuery = "UPDATE {$this->tabela} SET ";
     $set = "";
     foreach ($this->getAll() as $key => $value) {
@@ -66,6 +64,13 @@ abstract class Crud
     $stmp->execute();
   }
 
+  public function updateOne($coluna, $valor){
+    $sqlQuery = "UPDATE {$this->tabela} SET {$coluna} = '{$valor}'";
+    // echo $sqlQuery;
+    $stmp = Conexao::prepare($sqlQuery);
+    $stmp->execute();
+  }
+
   public function get($atributo){
     if (isset($atributo)) {
       return $this->$atributo;
@@ -77,10 +82,10 @@ abstract class Crud
   public function getAll(){
     return get_object_vars($this);
   }
-  
+
   public function getDetalhes(){
     foreach ($this->getAll() as $key => $value) {
-      echo "[".$key."] = ". $value ."\n <br>";
+      echo "[".$key."] = ". $value ."\n";
     }
   }
 
@@ -90,7 +95,7 @@ abstract class Crud
 
   public function setAll($dados){
     foreach ($this->getAll() as $atributo => $value) {
-      if (in_array($atributo, array('tabela', 'id'))) continue;
+      if (in_array($atributo, array('tabela', 'id', 'id_pessoa', 'ocupacao'))) continue;
       $this->set($atributo,$dados[$atributo]);
     }
   }

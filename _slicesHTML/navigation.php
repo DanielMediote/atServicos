@@ -8,14 +8,18 @@
     <?php if ($_SESSION['status']): ?>
     <?php else: ?>
       <li><a id="open-modal">Login</a></li>
-    <?php endif; ?>
+    <?php endif;?>
     <li class='sub-menu'>
       <a>Explorar <i class='fa fa-angle-down'></i></a>
       <ul>
-        <li><a href='/cadastro'>Cadastro</a></li>
-        <li><a href='/administradores'>Administradores</a></li>
-        <li><a href='/clientes'>Clientes</a></li>
-        <li><a href='/prestadores'>Prestadores</a></li>
+        <?php if (!$_SESSION['status']): ?>
+          <li><a href='/cadastrarCliente'>Seja um Cliente</a></li>
+        <?php endif; ?>
+        <?php if ($_SESSION['ocupacao']=="Administrador"): ?>
+          <li><a href='/cadastrarPrestador'>Adicionar Prestador</a></li>
+          <li><a href='/novoServico'>Adicionar Servico</a></li>
+        <?php endif;?>
+        <li><a href='/pessoas'>Lista de Membros</a></li>
       </ul>
     </li>
     <li class='sub-menu'>
@@ -75,21 +79,24 @@
       <div class="container">
         <div class="profile-card">
           <div class="avatar">
+            <img src="<?=$_SESSION['foto']?>" alt="">
           </div>
-          <h3 class="name"><?=$_SESSION['pes_nome']?></h3>
-          <h4 class="role">Software Developer</h4>
-          <h5 class="nick"><?=$_SESSION['pes_email']?></h5>
+          <h3 class="name"><?=$_SESSION['nome']?></h3>
+          <h4 class="role"><?=$_SESSION['ocupacao']?></h4>
+          <h5 class="nick"><?=$_SESSION['email']?></h5>
         </div>
       </div>
     </div>
     <div class="menu-body">
       <nav class='side-nav animated bounceInDown'>
         <ul>
-          <li class='sub-menu'><a href='#settings'><div class='fa fa-user'></div>Usuario<div class='fa fa-angle-down right'></div></a>
+          <li class='sub-menu'>
+            <a href='#perfil'>
+              <div class='fa fa-user'></div>Usuario<div class='fa fa-angle-down right'></div>
+            </a>
             <ul>
               <li><a href='/perfil'>Perfil</a></li>
               <li><a href='/contatos'>Contatos</a></li>
-              <li><a href='/servicosPerfil'>Serviços</a></li>
               <li><a href='/notificacoes'>Notas</a></li>
             </ul>
           </li>
@@ -97,19 +104,21 @@
             <a href='/perfil'><div class='fa fa-cog'></div>Configurações</a>
           </li>
           <li>
-            <a href='#message'><div class='fa fa-envelope'></div>Notificaçoes<span class='badge right'>12</span></a>
+            <a href=''><div class='fa fa-envelope'></div>Notificaçoes<span class='badge right'>12</span></a>
           </li>
-          <li class='sub-menu'>
-            <a href='#message'>
-              <div class='fa fa-question-circle'></div>Ajuda<div class='fa fa-caret-down right'></div>
-            </a>
-            <ul>
-              <li><a href='#settings'>FAQ's</a></li>
-              <li><a href='#settings'>Reportar Bug</a></li>
-              <li><a href='#settings'>Forum</a></li>
-            </ul>
-          </li>
-          <li>
+          <?php if ($_SESSION['ocupacao']!="Administrador"): ?>
+            <li class='sub-menu'>
+              <a href="#ajuda">
+                <div class='fa fa-question-circle'></div>Ajuda<div class='fa fa-caret-down right'></div>
+              </a>
+              <ul>
+                <li><a href='/faq'>FAQ's</a></li>
+                <li><a href='/reportbug'>Reportar Bug</a></li>
+                <li><a href='/forum'>Forum</a></li>
+              </ul>
+            </li>
+            <li>
+          <?php endif; ?>
             <a id="logoffPessoa" style="cursor: pointer;">
               <div class='fa fa-sign-out-alt'></div>Logout
             </a>

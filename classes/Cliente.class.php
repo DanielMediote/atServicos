@@ -4,8 +4,8 @@ class Cliente extends Pessoa
 {
 	protected $tabela = "CLIENTE";
 	protected $id;
-	protected $cliente_cpf;
 	protected $id_pessoa;
+	protected $cpf;
 
 	public function __construct()
 	{
