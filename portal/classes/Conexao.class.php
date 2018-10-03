@@ -3,12 +3,10 @@
 final class Conexao
 {
 
-  public function __construct()
-  {
+  public function __construct(){
   }
 
-  public function open()
-  {
+  public function open(){
     if (!defined('user')) {
       define('user', 'root');
     }
@@ -50,11 +48,10 @@ final class Conexao
     return $conn;
   }
 
-  public static function prepare($sql)
-  {
-    
+  public static function prepare($sql){
     return self::open()->prepare($sql);
   }
+
 }
 
 ?>

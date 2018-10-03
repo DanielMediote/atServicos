@@ -8,7 +8,7 @@
 	require_once '../controller/autoload.php';
 	$pessoa = new Pessoa();
 	$res = $pessoa->select();
+	var_dump($res);
 	?>
-	<img src="data: image/jpeg;base64,<?=$res[0]['foto']?>" alt="">
 </body>
 </html>

@@ -105,10 +105,10 @@ abstract class Crud
   }
 
   public function select(){
-    $sql = "SELECT * FROM TESTE WHERE id = 1;";
+    $sql = "SELECT * FROM {$this->tabela}";
     $stmt = Conexao::prepare($sql);
     $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $stmt->fetchAll();
   }
 
 }
