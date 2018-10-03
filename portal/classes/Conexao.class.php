@@ -52,6 +52,7 @@ final class Conexao
 
   public static function prepare($sql)
   {
+    
     return self::open()->prepare($sql);
   }
 }

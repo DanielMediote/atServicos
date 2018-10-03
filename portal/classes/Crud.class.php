@@ -28,16 +28,20 @@ abstract class Crud
       $sqlQuery .= ($value != end($this->getAll()))? ", " : "";
     }
     $sqlQuery .= ");";
-    // echo $sqlQuery . "\n";
-    $stmp = Conexao::prepare($sqlQuery);
-    $stmp->execute();
+    echo $sqlQuery . "\n";
+    // $stmp = Conexao::prepare($sqlQuery);
+    // $stmp->execute();
   }
 
-  public function search($id){
-    $sqlQuery = "SELECT * FROM {$this->tabela} WHERE :id = {$id}";
-    $stmp = Conexao::prepare($sqlQuery);
-    $stmp->execute();
-    return $smtp->fetch();
+  public function searchCampoByValor($campo, $valor, $colunaRes){
+    $type = gettype($valor);
+    $sqlQuery = "SELECT * FROM {$this->tabela} WHERE {$campo} = ";
+    $sqlQuery .= (in_array($type, array('integer', 'double', 'boolean'))) ?
+    "{$campo}" : "'{$valor}'";
+    $sqlQuery .= ";";
+    $stmt = Conexao::prepare($sqlQuery);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)[$colunaRes];;
   }
 
   public function delete($id){
@@ -46,7 +50,7 @@ abstract class Crud
     $stmp->execute();
   }
 
-  public function updateAll(){
+  public function updateAll($coluna, $valor){
     $sqlQuery = "UPDATE {$this->tabela} SET ";
     $set = "";
     foreach ($this->getAll() as $key => $value) {
@@ -64,11 +68,11 @@ abstract class Crud
     $stmp->execute();
   }
 
-  public function updateOne($coluna, $valor){
-    $sqlQuery = "UPDATE {$this->tabela} SET {$coluna} = '{$valor}'";
-    // echo $sqlQuery;
-    $stmp = Conexao::prepare($sqlQuery);
-    $stmp->execute();
+  public function updateOne($coluna, $valor, $campoIdentity, $campoValue){
+    $sqlQuery = "UPDATE {$this->tabela} SET {$coluna} = '{$valor}' WHERE {$campoIdentity} = {$campoValue}";
+    echo $sqlQuery."\n";
+    // $stmp = Conexao::prepare($sqlQuery);
+    // $stmp->execute();
   }
 
   public function get($atributo){
@@ -100,6 +104,12 @@ abstract class Crud
     }
   }
 
+  public function select(){
+    $sql = "SELECT * FROM TESTE WHERE id = 1;";
+    $stmt = Conexao::prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 
 }
 

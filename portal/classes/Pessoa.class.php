@@ -35,7 +35,6 @@ class Pessoa extends Crud
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
   }
 
   public function readAll(){
@@ -52,8 +51,8 @@ class Pessoa extends Crud
     $stmt->execute();
   }
 
-  public function getPessoaId(){
-    $sqlQuery = "SELECT id FROM {$this->tabela} WHERE email = '".$this->email."'";
+  public function getIdByEmail(){
+    $sqlQuery = "SELECT * FROM {$this->tabela} WHERE email = '".$this->email."'";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC)['id'];
@@ -66,4 +65,11 @@ class Pessoa extends Crud
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
+  public function atualizarDados($dados, $campoIdenty){
+    $this->set($campoIdenty, $dados['id']);
+    foreach ($dados as $key => $value) {
+      if(in_array($key, array('id', 'cpf', 'cidade', 'estado'))) continue ;
+      $this->updateOne($key, $value, $campoIdenty, $this->get($campoIdenty));
+    }
+  }
 }

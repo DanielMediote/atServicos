@@ -79,7 +79,7 @@
       <div class="container">
         <div class="profile-card">
           <div class="avatar">
-            <img src="<?=$_SESSION['foto']?>" alt="">
+            <img src="data:image/jpeg;base64,<?=$_SESSION['foto']?>" alt="">
           </div>
           <h3 class="name"><?=$_SESSION['nome']?></h3>
           <h4 class="role"><?=$_SESSION['ocupacao']?></h4>
@@ -119,7 +119,7 @@
             </li>
             <li>
           <?php endif; ?>
-            <a id="logoffPessoa" style="cursor: pointer;">
+            <a id="logoffPessoa" style="cursor: pointer;" href="/home">
               <div class='fa fa-sign-out-alt'></div>Logout
             </a>
           </li>

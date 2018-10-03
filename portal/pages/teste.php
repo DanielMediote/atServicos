@@ -6,9 +6,9 @@
 <body>
 	<?php
 	require_once '../controller/autoload.php';
-	$admin = new Administrador();
-
-	$admin->getDetalhes();
+	$pessoa = new Pessoa();
+	$res = $pessoa->select();
 	?>
+	<img src="data: image/jpeg;base64,<?=$res[0]['foto']?>" alt="">
 </body>
 </html>

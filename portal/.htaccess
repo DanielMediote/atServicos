@@ -11,6 +11,7 @@
   RewriteRule ^cadastrarPrestador/?$ /pages/cadastroPrestador.php [NC,L]
   RewriteRule ^teste/?$ /pages/teste.php [NC,L]
   RewriteRule ^pessoas/?$ /pages/pessoas.php [NC,L]
+  RewriteRule ^perfil/?$ /pages/perfil.php [NC,L]
 
   #  ErrorDocument 401 /errorpages/401.html
   #  ErrorDocument 403 /errorpages/403.html

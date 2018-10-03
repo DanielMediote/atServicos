@@ -11,10 +11,10 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 </head>
 <body>
-  <?php include_once(ROOT. '/_slicesHTML/navigation.php');?>
+  <?php include_once(ROOT.'/_slicesHTML/navigation.php');?>
   <div class="tabela-pessoas">
-    <?php $cliente = new Pessoa();?>
-    <?php foreach ($cliente->readPessoa() as $tupla => $value):?>
+    <?php $pessoa = new Pessoa();?>
+    <?php foreach ($pessoa->readPessoa() as $tupla => $value):?>
       <figure class="snip0045 blue">
         <figcaption>
           <h2><?=$value['nome']?></h2>

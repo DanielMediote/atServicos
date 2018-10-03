@@ -27,6 +27,14 @@ class File{
   public function readBase64(){
     return base64_decode($this->base64);
   }
+
+  public function get($atributo){
+    if (isset($atributo)) {
+      return $this->$atributo;
+    } else {
+      return $this->NULL;
+    }
+  }
 }
 
 

@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+    # image: php:7.0-apache
+    container_name: web
+    ports:
+      - "8080:80"
+    volumes:
+      - "./portal:/var/www/html"
+    links:
+      - mysql
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "dockerehshow"
+      MYSQL_DATABASE: "atServico"
+    volumes:
+      - ./dumps:/docker-entryponit-initdb.d
+    ports:
+      - "3307:3306"

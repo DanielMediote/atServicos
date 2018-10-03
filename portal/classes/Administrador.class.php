@@ -4,12 +4,9 @@ class Administrador extends Pessoa
 {
 
   protected $tabela = "ADMIN";
-  protected $nome;
-  protected $usuario;
-  protected $senha;
 
   function __construct(){
-
+    parent::__construct();
   }
 
   public function readAll(){

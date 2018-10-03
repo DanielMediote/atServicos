@@ -18,7 +18,7 @@
   <div class="pagina">
     <form id="formulario" class="" method="post" enctype="multipart/form-data">
       <div class="input-group">
-        <h2>Resgistro de Funcionários</h2>
+        <h2>Resgistro de Prestadores</h2>
         <label for="">Nome Completo</label>
         <input class="cadastro-input" type="text" name="nome" value="" maxlength="50" size="50">
         <i class="fa fa-user"><div class="linha"></div></i>
@@ -32,7 +32,7 @@
         <i class="fa fa-phone"><div class="linha"></div></i>
 
         <label for="">CPNJ/CPF</label>
-        <input class="cadastro-input" type="text" name="cpnj" value="" placeholder="+(00) 9 0000-0000" maxlength="14" size="15">
+        <input class="cadastro-input" type="text" name="cpnj" value="" placeholder="000.000/0000-00" maxlength="14" size="15">
         <i class="fa fa-address-card"><div class="linha"></div></i>
 
         <label for="">Imagem de Perfil</label>
@@ -75,6 +75,7 @@
       $estado = new Estado();
       $brasil = array('Norte','Sul','Centro-Oeste', 'Sudeste', 'Nordeste');
       ?>
+
       <label for="">Logadouro</label>
       <div class="input-group-col">
         <select class="" name="estado_id" id="estado" onchange="loadCidades()">
@@ -91,6 +92,16 @@
           <option value="" hidden>Selecione o Estado...</option>
         </select>
       </div>
+
+      <label for="">Cargo de Serviço</label>
+      <?php //$servico = new Servico() ?>
+      <?php //foreach ($servico->readAll() as $key => $value): ?>
+        <select class="" name="id_servico">
+          <option value="">Cargo 1</option>
+          <option value="">Cargo 2</option>
+          <option value="">Cargo 3</option>
+        </select>
+        <?php //endforeach; ?>
       <div class="termos">
         <input type="checkbox" id="terms" value="X" onclick="prosseguir()">Eu li e concordo com <u>Termos de Política e Privacidade</u>.
       </div>
