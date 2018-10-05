@@ -1,8 +1,6 @@
 <?php
-require_once '../controller/autoload.php';
+require_once '../config.php';
 $cookie = $_POST['cookie'];
-
-$sessao = new Sessao();
 $pessoa = new Pessoa();
 $cliente = new Cliente();
 $prestador = new Prestador();
@@ -11,15 +9,15 @@ if ($cookie['sessao'] == "online") {
   $dataResponse = $pessoa->logarPessoa($cookie['username'], md5($cookie['password']));
   $serverResponse;
   if ($dataResponse) {
-    $sessao->openSession($dataResponse);
+    Sessao::setSessionData($dataResponse);
     $serverResponse = 'True';
   }else {
-    $sessao->closeSession($pessoa);
+    Sessao::unsetSessionDate($pessoa);
     $serverResponse = 'False';
   }
   echo $serverResponse;
 }elseif($cookie['sessao'] = "offline") {
-  $sessao->closeSession($pessoa);
+  Sessao::unsetSessionDate($pessoa);
 }
 
 

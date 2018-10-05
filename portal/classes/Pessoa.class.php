@@ -21,14 +21,41 @@ class Pessoa extends Crud
   protected $cidade_id;
   protected $estado_id;
 
-  public function __construct()
-  {
+  public function __construct(){
     // echo "Você instânciou um(a) " .get_class($this) ."\n";
   }
 
-  public function readPessoa(){
-    $sqlQuery = "SELECT PESSOA.id, PESSOA.nome, PESSOA.usuario, PESSOA.email,
-    PESSOA.telefone, CIDADE.nome AS cidade, ESTADO.nome AS estado, PESSOA.ocupacao
+  public function insertPessoa(){
+    $sqlQuery = "INSERT INTO PESSOA(
+      nome, email, telefone, usuario, senha, genero, foto, cidade_id, estado_id
+    )
+    VALUES (
+      :nome,:email,:telefone,:usuario,:senha,:genero,:foto,:cidade_id,:estado_id
+    );";
+    $stmt = Conexao::prepare($sqlQuery);
+    $stmt->bindParam(":nome",$this->nome, PDO::PARAM_STR, 45);
+    $stmt->bindParam(":email",$this->email, PDO::PARAM_STR, 45);
+    $stmt->bindParam(":usuario",$this->usuario, PDO::PARAM_STR, 45);
+    $stmt->bindParam(":senha",$this->senha, PDO::PARAM_STR, 45);
+    $stmt->bindParam(":telefone",$this->telefone, PDO::PARAM_STR, 45);
+    $stmt->bindParam(":genero",$this->genero, PDO::PARAM_STR, 1);
+    $stmt->bindParam(":foto",$this->foto, PDO::PARAM_LOB);
+    $stmt->bindParam(":cidade_id",$this->cidade_id, PDO::PARAM_INT);
+    $stmt->bindParam(":estado_id",$this->estado_id, PDO::PARAM_INT);
+    $stmt->execute();
+  }
+
+  public function readPessoaLista(){
+    $sqlQuery = "SELECT
+    PESSOA.id,
+    PESSOA.nome,
+    PESSOA.usuario,
+    PESSOA.email,
+    PESSOA.telefone,
+    PESSOA.foto,
+    CIDADE.nome AS cidade,
+    ESTADO.nome AS estado,
+    PESSOA.ocupacao AS ocupacao
     FROM PESSOA
     JOIN ESTADO ON PESSOA.estado_id = ESTADO.id
     JOIN CIDADE ON PESSOA.cidade_id = CIDADE.id;";
@@ -37,25 +64,25 @@ class Pessoa extends Crud
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function readAll(){
-    $sqlQuery = "SELECT * FROM {$this->tabela}";
+  public function searchPessoaPerfil($id){
+    $exeptColumns = array('tabela','id', 'id_pessoa', 'senha', 'foto', 'cidade_id', 'estado_id', 'ocupacao');
+    $sqlQuery = "SELECT ";
+    foreach ($this->getAll() as $key => $value) {
+      if(in_array($key, $exeptColumns)) continue;
+      $sqlQuery .= "{$this->tabela}.{$key}, ";
+    }
+    $sqlQuery .=
+    "
+    CIDADE.nome AS cidade,
+    ESTADO.nome AS estado
+    FROM {$this->tabela}
+    JOIN CIDADE ON CIDADE.id = CLIENTE.cidade_id
+    JOIN ESTADO ON ESTADO.id = CLIENTE.estado_id
+    WHERE id_pessoa = {$id};";
+    echo $sqlQuery;
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  public function updateForeignKey($id){
-    $sqlQuery = "CALL updateForeignKey('".$this->tabela."',".$id.", '".$this->email."');";
-    // echo $sqlQuery;
-    $stmt = Conexao::prepare($sqlQuery);
-    $stmt->execute();
-  }
-
-  public function getIdByEmail(){
-    $sqlQuery = "SELECT * FROM {$this->tabela} WHERE email = '".$this->email."'";
-    $stmt = Conexao::prepare($sqlQuery);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['id'];
   }
 
   public function logarPessoa($nome, $senha){
@@ -66,10 +93,7 @@ class Pessoa extends Crud
   }
 
   public function atualizarDados($dados, $campoIdenty){
-    $this->set($campoIdenty, $dados['id']);
-    foreach ($dados as $key => $value) {
-      if(in_array($key, array('id', 'cpf', 'cidade', 'estado'))) continue ;
-      $this->updateOne($key, $value, $campoIdenty, $this->get($campoIdenty));
-    }
+    $this->setAll($dados);
+    $this->updateAll($campoIdenty, $dados['id']);
   }
 }

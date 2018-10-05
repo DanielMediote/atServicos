@@ -18,7 +18,7 @@
 --
 -- Table structure for table `CIDADE`
 --
--- USE atServico;
+USE atServico;
 
 DROP TABLE IF EXISTS `CIDADE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;

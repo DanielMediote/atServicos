@@ -24,7 +24,7 @@ class Estado extends Crud{
     $sqlQuery = "SELECT * FROM {$this->tabela}";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
-    return $stmt->fetchAll();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function readPerRegion($regiao){

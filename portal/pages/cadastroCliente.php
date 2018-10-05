@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="../css/cadastro.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script src="../js/jquery.mask.js" charset="utf-8"></script>
 </head>
 <body>
 
@@ -20,25 +21,8 @@
     <form id="formulario" class="" method="post" enctype="multipart/form-data">
       <div class="input-group">
         <h2>Resgistro de Clientes</h2>
-        <label for="">Nome Completo</label>
-        <input class="cadastro-input" type="text" name="nome" value="" maxlength="50" size="50">
-        <i class="fa fa-user"><div class="linha"></div></i>
-
-        <label for="">E-mail</label>
-        <input class="cadastro-input" type="text" name="email" value="" maxlength="50" size="50">
-        <i class="fa fa-envelope"><div class="linha"></div></i>
-
-        <label for="">Telefone</label>
-        <input class="cadastro-input" type="text" name="telefone" value="" placeholder="+(00) 9 0000-0000" maxlength="14" size="15">
-        <i class="fa fa-phone"><div class="linha"></div></i>
-
-        <label for="">CPF</label>
-        <input class="cadastro-input" type="text" name="cpf" value="" placeholder="000.000.000 - 00" maxlength="11" size="15">
-        <i class="fa fa-address-card"><div class="linha"></div></i>
-
         <label for="">Imagem de Perfil</label>
-        <input type="file" name="img" id="id_photo" value="">
-
+        <input type="file" name="foto" id="id_photo" value="">
         <script type="text/javascript">
         var inputAddphoto = '<div class="upload-photo">'+
         '<i style="margin-left: 17px; margin-top: 22px;"'+
@@ -57,6 +41,14 @@
           reader.readAsDataURL(this.files[0]);
         });
         </script>
+        <label for="">Nome Completo</label>
+        <input class="cadastro-input" type="text" name="nome" value="" maxlength="50" size="50">
+        <i class="fa fa-user"><div class="linha"></div></i>
+
+        <label for="">E-mail</label>
+        <input class="cadastro-input" type="text" name="email" value="" maxlength="50" size="50">
+        <i class="fa fa-envelope"><div class="linha"></div></i>
+
         <label for="">Usuario</label>
         <input class="cadastro-input" type="text" name="usuario" value="" placeholder="Digite um nome como usuario" maxlength="30" size="30">
         <i class="fa fa-user-circle"><div class="linha"></div></i>
@@ -65,8 +57,17 @@
         <input class="cadastro-input" type="password" name="senha" value="" placeholder="Digite uma senha" maxlength="30" size="30">
         <i class="fa fa-key"><div class="linha"></div></i>
 
+        <label for="">Telefone</label>
+        <input class="cadastro-input" type="text" name="telefone" value="" maxlength="14" size="15">
+        <i class="fa fa-phone"><div class="linha"></div></i>
+
+        <label for="">CPF</label>
+        <input class="cadastro-input" type="text"  name="cpf" value="" maxlength="11" size="15">
+        <i class="fa fa-address-card"><div class="linha"></div></i>
+
+
       </div>
-      <label for="">Genero</label>
+      <label id="select" for="">Genero</label>
       <select class="" name="genero">
         <option value="" selected default hidden>Genero</option>
         <option value="M">Masculino</option>
@@ -76,7 +77,7 @@
       $estado = new Estado();
       $brasil = array('Norte','Sul','Centro-Oeste', 'Sudeste', 'Nordeste');
       ?>
-      <label for="">Logadouro</label>
+      <label id="select" for="">Logadouro</label>
       <div class="input-group-col">
         <select class="" name="estado_id" id="estado" onchange="loadCidades()">
           <option value="" selected disabled hidden>Selecionar o Estado...</option>
@@ -93,7 +94,7 @@
         </select>
       </div>
       <div class="termos">
-        <input type="checkbox" id="terms" value="X" onclick="prosseguir()">Eu li e concordo com <u>Termos de Política e Privacidade</u>.
+        <input type="checkbox" id="terms" value="" name="checkbox" onclick="prosseguir()">Eu li e concordo com <u>Termos de Política e Privacidade</u>.
       </div>
       <button class="cadastro-input" type="button" id="enviar">Cadastrar-se</button>
     </form>

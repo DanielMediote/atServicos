@@ -14,7 +14,6 @@ function loadCidades() {
     console.log("error");
   })
   .always(function() {
-    console.log("complete");
   });
 }
 
@@ -28,6 +27,9 @@ function prosseguir() {
 }
 
 $(document).ready(function() {
+  $("input[name=cpf]").mask('000.000.000-00', {reverse: true});
+  $("input[name=telefone]").mask('(00) 9 0000-0000');
+  $("input[name=cpnj]").mask('00.000.000/0000-00', {reverse: true});
   $('#enviar').on('click', function() {
     var dataForm = new FormData();
     var dados = {};
@@ -45,7 +47,7 @@ $(document).ready(function() {
       });
     });
     dataForm.append('dados',JSON.stringify(dados));
-    dataForm.append('imagem',$('#id_photo')[0].files[0]);
+    dataForm.append('file',$('#id_photo')[0].files[0]);
     $.ajax({
       url: '../controller/cadastrarPessoa.php',
       type: 'POST',
@@ -54,14 +56,13 @@ $(document).ready(function() {
       data: dataForm
     })
     .done(function(res) {
-      // location.reload();
       console.log(res);
+      location.reload();
     })
-    .fail(function() {
-      console.log("error");
+    .fail(function(res) {
+      console.log("Error \n"+res);
     })
     .always(function() {
-      console.log("complete");
     });
   });
 });

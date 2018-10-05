@@ -74,6 +74,9 @@
 <!-- barra de navegação lateral -->
 
 <div class="user-menu">
+  <div class="background-user-menu">
+
+  </div>
   <?php if ($_SESSION['status']): ?>
     <div class="menu-header">
       <div class="container">
@@ -117,8 +120,8 @@
                 <li><a href='/forum'>Forum</a></li>
               </ul>
             </li>
-            <li>
           <?php endif; ?>
+          <li>
             <a id="logoffPessoa" style="cursor: pointer;" href="/home">
               <div class='fa fa-sign-out-alt'></div>Logout
             </a>

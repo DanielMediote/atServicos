@@ -28,6 +28,12 @@ class Cidade extends Crud{
       $stmt->execute();
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function mostrarCidades($id_estado){
+    foreach ($this->readByEstado($id_estado) as $key => $value) {
+      echo "<option value='".$value['id']."'>".$value['nome']."</option>";
+    }
+  }
 }
 
 

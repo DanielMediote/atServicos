@@ -3,16 +3,20 @@
 
 
 /**
- *
- */
-final class Sessao
-{
+*
+*/
+final class Sessao{
 
-  function __construct(){
+  function __construct()
+  {
+  }
+
+  public static function open()
+  {
     session_start();
   }
 
-  public function openSession($dados)
+  public static function setSessionData($dados)
   {
     $_SESSION['status'] = True;
     foreach ($dados as $key => $value) {
@@ -20,7 +24,7 @@ final class Sessao
     }
   }
 
-  public function closeSession($pessoa)
+  public static function unsetSessionDate($pessoa)
   {
     $_SESSION['status'] = False;
     foreach ($pessoa->getAll() as $key => $value) {
@@ -32,4 +36,4 @@ final class Sessao
 
 
 
- ?>
+?>

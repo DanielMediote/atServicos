@@ -9,6 +9,7 @@
   RewriteRule ^home/?$ /index.php [NC,L]
   RewriteRule ^cadastrarCliente/?$ /pages/cadastroCliente.php [NC,L]
   RewriteRule ^cadastrarPrestador/?$ /pages/cadastroPrestador.php [NC,L]
+  RewriteRule ^novoServico/?$ /pages/cadastroServico.php [NC,L]
   RewriteRule ^teste/?$ /pages/teste.php [NC,L]
   RewriteRule ^pessoas/?$ /pages/pessoas.php [NC,L]
   RewriteRule ^perfil/?$ /pages/perfil.php [NC,L]

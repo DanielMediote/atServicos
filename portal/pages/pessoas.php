@@ -14,8 +14,8 @@
   <?php include_once(ROOT.'/_slicesHTML/navigation.php');?>
   <div class="tabela-pessoas">
     <?php $pessoa = new Pessoa();?>
-    <?php foreach ($pessoa->readPessoa() as $tupla => $value):?>
-      <figure class="snip0045 blue">
+    <?php foreach ($pessoa->readPessoaLista() as $tupla => $value):?>
+      <figure class="snip0045">
         <figcaption>
           <h2><?=$value['nome']?></h2>
           <p><i class="fa fa-at"></i> <?=$value['email']?></p>
@@ -27,7 +27,15 @@
             <a href="#"><i class="fab fa-github"></i></i></a>
           </div>
         </figcaption>
-        <img src="../img/avatar.png" alt="avatar"/>
+        <?php
+        $srcImage;
+        if($value['foto'] == NULL){
+          $srcImage = "../img/semfoto.jpg";
+        }else{
+          $srcImage = "data:image/jpeg;base64,".$value['foto'];
+        }
+        ?>
+        <img src="<?=$srcImage?>" alt="avatar"/>
         <div class="position">Ocupação : <?=$value['ocupacao']?></div>
       </figure>
     <?php endforeach; ?>

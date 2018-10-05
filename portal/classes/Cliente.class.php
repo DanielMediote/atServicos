@@ -12,23 +12,35 @@ class Cliente extends Pessoa
 		parent::__construct();
 	}
 
-	public function readOne($email){
-    $sqlQuery = "SELECT
-		CLIENTE.nome AS 'Nome Completo',
-		CLIENTE.usuario AS 'Usuario',
-		CLIENTE.email AS 'E-mail',
-		CLIENTE.telefone AS 'Telefone',
-		CLIENTE.cpf AS 'CPF',
-		CIDADE.nome AS 'Cidade',
-		ESTADO.nome AS 'Estado'
-		FROM {$this->tabela}
-		JOIN ESTADO ON CLIENTE.estado_id = ESTADO.id
-		JOIN CIDADE ON CLIENTE.estado_id = CIDADE.id
-		WHERE email = '{$email}';";
-    $stmt = Conexao::prepare($sqlQuery);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
+	public function insertCliente()
+	{
+		$sqlQuery = "INSERT INTO CLIENTE(cpf) VALUES(:cpf);";
+		// echo $sqlQuery;
+		$stmt = Conexao::prepare($sqlQuery);
+		$stmt->bindParam(":cpf",$this->cpf, PDO::PARAM_STR, 45);
+		$stmt->execute();
+	}
+
+	public function showCliente($id){
+		$sqlQuery = "SELECT
+		PESSOA.nome,
+		PESSOA.email,
+		PESSOA.telefone,
+		CLIENTE.cpf,
+		PESSOA.genero,
+		PESSOA.usuario,
+		ESTADO.nome AS Estado,
+		CIDADE.nome AS Cidade
+		FROM CLIENTE
+		JOIN PESSOA ON CLIENTE.id_pessoa = PESSOA.id
+		JOIN ESTADO ON ESTADO.id = PESSOA.estado_id
+		JOIN CIDADE ON CIDADE.id = PESSOA.cidade_id
+		AND PESSOA.id = {$id};";
+		// echo $sqlQuery;
+		$stmt = Conexao::prepare($sqlQuery);
+		$stmt->execute();
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
 }
 
 

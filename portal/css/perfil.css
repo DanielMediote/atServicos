@@ -8,6 +8,12 @@ body, html{
   position: absolute;
   width: 100vw;
 }
+.image img{
+  width: 350px;
+  height: 350px;
+  border-radius: 1000px !important;
+  position: relative;
+}
 .perfil table.table-content {
   min-width: 50%;
   max-width: 100%;
@@ -20,16 +26,23 @@ body, html{
 .perfil table.table-content tr:nth-child(odd) {
   background-color: #f4f4f4;
 }
+
 .perfil table.table-content tr th,
 .perfil table.table-content tr td {
   padding: 5px 10px 5px  5px;
   font-family: 'Segoe UI';
   color: #555;
 }
+.perfil table.table-content tr td{
+  width: 90vw;
+}
+
 .perfil table.table-content tr th {
   padding-left: 10px;
-  width: 10%;
+  width: 10vw;
+  text-transform: uppercase;
 }
+
 .perfil .table-content tr td {
   word-wrap: break-word;
 }
@@ -97,4 +110,12 @@ body, html{
 }
 #deletarConta:hover{
   background-color: rgb(255, 88, 88);
+}
+
+select.campo {
+  border: none;
+  background: transparent;
+  font-size: 17px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
