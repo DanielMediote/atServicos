@@ -57,7 +57,7 @@ $(document).ready(function() {
     })
     .done(function(res) {
       console.log(res);
-      location.reload();
+      // location.reload();
     })
     .fail(function(res) {
       console.log("Error \n"+res);

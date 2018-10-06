@@ -17,5 +17,7 @@ if ($_SESSION['ocupacao'] == 'Cliente') {
 } elseif ($_SESSION['ocupacao'] == 'Prestador') {
   $pessoa->atualizarDados($dados, 'id');
   $prestador->updateOne('cpnj', $dados['cpnj'], 'id_pessoa', $dados['id']);
+} else{
+  $pessoa->atualizarDados($dados, 'id');
 }
 ?>

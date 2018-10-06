@@ -22,10 +22,11 @@ class Pessoa extends Crud
   protected $estado_id;
 
   public function __construct(){
+    // $this->ocupacao = get_class($this);
     // echo "Você instânciou um(a) " .get_class($this) ."\n";
   }
 
-  public function insertPessoa(){
+  public function insert(){
     $sqlQuery = "INSERT INTO PESSOA(
       nome, email, telefone, usuario, senha, genero, foto, cidade_id, estado_id
     )
@@ -96,4 +97,6 @@ class Pessoa extends Crud
     $this->setAll($dados);
     $this->updateAll($campoIdenty, $dados['id']);
   }
+
+
 }

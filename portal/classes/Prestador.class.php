@@ -38,10 +38,9 @@ class Prestador extends Pessoa
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
-	public function insertPrestador()
+	public function insert()
 	{
 		$sqlQuery = "INSERT INTO PRESTADOR(cpnj) VALUES(:cpnj);";
-		// echo $sqlQuery;
 		$stmt = Conexao::prepare($sqlQuery);
 		$stmt->bindParam(":cpnj",$this->cpnj, PDO::PARAM_STR, 45);
 		$stmt->execute();

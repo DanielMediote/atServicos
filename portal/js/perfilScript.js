@@ -24,6 +24,7 @@ $(document).ready(function() {
   $("input[name=telefone]").mask('(00) 9 0000-0000');
   $("input[name=cpnj]").mask('00.000.000/0000-00', {reverse: true});
   $('#atualizarDados').hide();
+
   $('#atualizarDados').on('click', function() {
     var dados = {};
     $('#tabela').each(function() {

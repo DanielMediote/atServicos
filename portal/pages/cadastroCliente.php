@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
   <script src="../js/jquery.mask.js" charset="utf-8"></script>
+  <script src="../js/formularioScript.js" charset="utf-8"></script>
 </head>
 <body>
 
@@ -99,6 +100,5 @@
       <button class="cadastro-input" type="button" id="enviar">Cadastrar-se</button>
     </form>
   </div>
-  <script src="/js/formularioScript.js" charset="utf-8"></script>
 </body>
 </html>

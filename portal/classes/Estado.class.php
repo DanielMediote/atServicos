@@ -20,6 +20,8 @@ class Estado extends Crud{
     // echo "Estado instânciado";
   }
 
+  public function insert(){}
+
   public function readAll(){
     $sqlQuery = "SELECT * FROM {$this->tabela}";
     $stmt = Conexao::prepare($sqlQuery);

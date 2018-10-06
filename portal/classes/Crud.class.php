@@ -12,23 +12,19 @@ abstract class Crud
   @author Daniel José Bispo
   @access public
   */
+  abstract public function insert();
 
-
-  /*
-  @ignore
-  */
-
-  // abstract function readAll();
-  // abstract public function insert();
 
   // public function insert(){
+  //   $colunaBase = $this->getTableDatails();
+  //   $colunaClass = $this->getAll();
   //   $sqlQuery = "INSERT INTO {$this->tabela}(";
-  //   foreach ($this->getAll() as $key => $value) {
-  //     if (in_array($key, array('tabela', 'id' , 'id_pessoa', 'ocupacao'))) continue;
-  //     $sqlQuery .= $key;
-  //     $sqlQuery .= ($key != end(array_keys($this->getAll())))? ", " : "";
+  //   foreach ($colunaBase as $coluna) {
+  //     if (in_array($coluna['Field'], $colunaClass)==False) {
+  //       $sqlQuery .= $coluna['Field'];
+  //       $sqlQuery .= ($coluna['Filed'] != end($colunaBase))? ", " : "";
+  //     }
   //   }
-  //
   //   $sqlQuery .= ") VALUES(";
   //   foreach ($this->getAll() as $key => $value) {
   //     if (in_array($key, array('tabela', 'id', 'id_pessoa', 'ocupacao'))) continue;
@@ -39,16 +35,23 @@ abstract class Crud
   //   }
   //   $sqlQuery .= ");";
   //   echo $sqlQuery."\n";
-  //   // $stmp = Conexao::prepare($sqlQuery);
-  //   // $stmp->execute();
+  //   $stmp = Conexao::prepare($sqlQuery);
+  //   $stmp->execute();
   // }
 
+  public function getTableDatails(){
+    $sqlQuery = "DESCRIBE {$this->tabela};";
+    // echo $sqlQuery."\n";
+    $stmt = Conexao::prepare($sqlQuery);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 
   public function delete($coluna, $valor){
     $type = gettype($valor);
     $sqlQuery = "DELETE {$this->tabela} WHERE {$coluna} = ";
     $sqlQuery .= (in_array($type, array('integer', 'boolean', 'double')))?
-     "{$valor};": "'{$valor}';" ;
+    "{$valor};": "'{$valor}';" ;
     // echo $sqlQuery."\n";
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
@@ -56,15 +59,19 @@ abstract class Crud
 
   public function updateAll($coluna, $valor){
     $sqlQuery = "UPDATE {$this->tabela} SET ";
+    $colunaObj = $this->getAll();
     $set = "";
-    foreach ($this->getAll() as $key => $value) {
+    foreach ($colunaObj as $key => $value) {
+      if ($value==NULL) continue;
+        $colunaSetted[$key] = $value;
+    }
+    foreach ($colunaSetted as $key => $value) {
       if (in_array($key, array('tabela', 'id', 'id_pessoa'))) continue;
-      if($value == NULL) continue;
       $set .= "{$key} = ";
       $type = gettype($value);
       $set .= (in_array($type, array('integer', 'double', 'boolean'))) ?
       "{$value}" : "'{$value}'";
-      $set .= ($value != end($this->getAll()))? ", " : " ";
+      $set .= ($key != end(array_keys($colunaSetted)))? ", " : " ";
     }
     $sqlQuery .= $set;
     $sqlQuery .= " WHERE {$coluna} = {$valor}";

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../css/navigation.css">
+<link rel="stylesheet" href="<?=HOST."/css/navigation.css"?>">
 <nav class='main-nav animated flipInX'>
   <ul>
     <?php if ($_SESSION['status']): ?>
@@ -13,13 +13,13 @@
       <a>Explorar <i class='fa fa-angle-down'></i></a>
       <ul>
         <?php if (!$_SESSION['status']): ?>
-          <li><a href='/cadastrarCliente'>Seja um Cliente</a></li>
+          <li><a href='/cadastro/cliente'>Seja um Cliente</a></li>
         <?php endif; ?>
         <?php if ($_SESSION['ocupacao']=="Administrador"): ?>
-          <li><a href='/cadastrarPrestador'>Adicionar Prestador</a></li>
-          <li><a href='/novoServico'>Adicionar Servico</a></li>
+          <li><a href='/admin/cadastro/prestador'>Adicionar Prestador</a></li>
+          <li><a href='/admin/cadastro/servico'>Adicionar Servico</a></li>
+          <li><a href='/admin/lista-de-pessoas'>Lista de Usuários</a></li>
         <?php endif;?>
-        <li><a href='/pessoas'>Lista de Membros</a></li>
       </ul>
     </li>
     <li class='sub-menu'>
@@ -98,13 +98,10 @@
               <div class='fa fa-user'></div>Usuario<div class='fa fa-angle-down right'></div>
             </a>
             <ul>
-              <li><a href='/perfil'>Perfil</a></li>
-              <li><a href='/contatos'>Contatos</a></li>
-              <li><a href='/notificacoes'>Notas</a></li>
+              <li><a href='/conta/perfil'><div class='fa fa-address-book '></div> Perfil</a></li>
+              <li><a href='/conta/contatos'><div class='fa fa-user-friends'></div> Contatos</a></li>
+              <li><a href='/conta/configuracao'><div class='fa fa-cog'></div> Configurações</a></li>
             </ul>
-          </li>
-          <li>
-            <a href='/perfil'><div class='fa fa-cog'></div>Configurações</a>
           </li>
           <li>
             <a href=''><div class='fa fa-envelope'></div>Notificaçoes<span class='badge right'>12</span></a>
@@ -133,4 +130,4 @@
 </div>
 
 
-<script src="../js/navigationScript.js" charset="utf-8"></script>
+<script src="<?=HOST."/js/navigationScript.js"?>" charset="utf-8"></script>

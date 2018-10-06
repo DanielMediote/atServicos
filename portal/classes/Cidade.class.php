@@ -22,6 +22,8 @@ class Cidade extends Crud{
     return $stmt->fetchAll();
   }
 
+  public function insert(){}
+
   public function readByEstado($id){
       $sqlQuery = "SELECT * FROM {$this->tabela} WHERE estado = {$id};";
       $stmt = Conexao::prepare($sqlQuery);

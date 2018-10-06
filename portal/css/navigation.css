@@ -84,7 +84,7 @@ color: #342D2B
 .user-menu{
   position: fixed;
   top: 9%;
-  width: 25vw;
+  width: 25%;
   height: 100vh;
   left: 0%;
   z-index: 2;

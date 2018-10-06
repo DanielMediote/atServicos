@@ -16,8 +16,8 @@ class Administrador extends Pessoa
 		PESSOA.telefone,
 		PESSOA.genero,
 		PESSOA.usuario,
-		ESTADO.nome AS estado,
-		CIDADE.nome AS cidade
+		ESTADO.nome AS Estado,
+		CIDADE.nome AS Cidade
 		FROM ADMINISTRADOR
 		JOIN PESSOA ON ADMINISTRADOR.id_pessoa = PESSOA.id
 		JOIN ESTADO ON ESTADO.id = PESSOA.estado_id
@@ -31,9 +31,9 @@ class Administrador extends Pessoa
 
   public function cadastrarPrestador($dadosPrestador, $pessoa, $prestador){
     $pessoa->setAll($dadosPrestador);
-    $pessoa->insertPessoa();
+    $pessoa->insert();
     $prestador->setAll($dadosPrestador);
-    $prestador->insertPrestador();
+    $prestador->insert();
     $id_pes = $pessoa->searchCampoByValor('email', $pessoa->get('email'), 'id');
     $pessoa->updateOne('ocupacao', get_class($prestador), 'email', $prestador->get('email'));
     $prestador->updateOne('id_pessoa', $id_pes , 'cpnj', $prestador->get('cpnj'));

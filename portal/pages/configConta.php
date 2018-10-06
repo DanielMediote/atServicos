@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../img/icon/settings.png" type="image/svg+xml"/>
-    <title>Perfil</title>
+    <title>Configurações da Conta</title>
     <link rel="stylesheet" href="../css/perfil.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -15,26 +15,6 @@
   </head>
   <body>
     <!-- Navigation -->
-    <?php
-    $pessoa = new Pessoa();
-    $cliente = new Cliente();
-    $prestador = new Prestador();
-    $admin = new Administrador();
-    switch ($_SESSION['ocupacao']) {
-      case 'Cliente':
-      $dataRes = $cliente->showCliente($_SESSION['id']);
-      break;
-      case 'Prestador':
-      $dataRes = $prestador->showPrestador($_SESSION['id']);
-      break;
-      case 'Administrador':
-      $dataRes = $admin->showAdmin($_SESSION['id']);
-      break;
-      default:
-      $dataRes = null;
-      break;
-    }
-    ?>
     <?php include_once(ROOT.'/_slicesHTML/navigation.php');?>
     <div class="perfil">
       <section class="profile-container row">
@@ -53,19 +33,39 @@
           <div class="profile-information">
           </div>
         </div>
+        <?php
+        $pessoa = new Pessoa();
+        $cliente = new Cliente();
+        $prestador = new Prestador();
+        $admin = new Administrador();
+        switch ($_SESSION['ocupacao']) {
+          case 'Cliente':
+          $dataRes = $cliente->showCliente($_SESSION['id']);
+          break;
+          case 'Prestador':
+          $dataRes = $prestador->showPrestador($_SESSION['id']);
+          break;
+          case 'Administrador':
+          $dataRes = $admin->showAdmin($_SESSION['id']);
+          break;
+          default:
+          $dataRes = null;
+          break;
+        }
+        ?>
         <div class="profile-content col m9 s12">
           <table id="tabela" class="table-content">
-            <?php foreach ($dataRes as $keyPerfil => $valuePerfil): ?>
-              <?php if ($keyPerfil == 'Estado'): ?>
+            <?php foreach ($dataRes as $coluna => $valor): ?>
+              <?php if ($coluna == 'Estado'): ?>
                 <tr>
-                  <th><?=$keyPerfil?></th>
+                  <th><?=$coluna?></th>
                   <td>
                     <?php
-                    $listaEstado = new $keyPerfil();
+                    $listaEstado = new $coluna();
                     $regioesBr = array('Norte','Sul','Centro-Oeste', 'Sudeste', 'Nordeste');
                     ?>
                     <select class="campo" id="estado" name="Estado" disabled onchange="loadCidades()">
-                      <option value="" selected hidden=""><?=$valuePerfil?></option>
+                      <option value="" selected hidden=""><?=$valor?></option>
                       <?php foreach ($regioesBr as $key => $regiao): ?>
                         <optgroup label="<?=$regiao?>">
                           <?php foreach ($listaEstado->readPerRegion($regiao) as $keyEstado => $value): ?>
@@ -76,20 +76,20 @@
                     </select>
                   </td>
                 </tr>
-              <?php elseif($keyPerfil == 'Cidade'): ?>
+              <?php elseif($coluna == 'Cidade'): ?>
                 <tr>
-                  <th><?=$keyPerfil?></th>
+                  <th><?=$coluna?></th>
                   <td>
-                    <select id="cidade" class="campo" name="<?=$keyPerfil?>" disabled>
-                      <option value="" selected><?=$valuePerfil?></option>
+                    <select id="cidade" class="campo" name="<?=$coluna?>" disabled>
+                      <option value="" selected><?=$valor?></option>
                     </select>
                   </td>
                 </tr>
               <?php else: ?>
                 <tr>
-                  <th><?=$keyPerfil?></th>
+                  <th><?=$coluna?></th>
                   <td>
-                      <input class="campo" type="text" name="<?=$keyPerfil?>" value="<?=$valuePerfil?>" disabled>
+                    <input class="campo" type="text" name="<?=$coluna?>" value="<?=$valor?>" disabled>
                   </td>
                 </tr>
               <?php endif; ?>

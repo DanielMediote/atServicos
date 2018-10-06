@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="../img/icon/task.png" type="image/svg+xml"/>
   <title>Novo Prestador</title>
-  <link rel="stylesheet" href="../css/cadastro.css">
+  <link rel="stylesheet" href="<?=HOST."/css/cadastro.css"?>">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script src="../js/jquery.mask.js" charset="utf-8"></script>
+  <script src="<?=HOST."/js/jquery.mask.js"?>" charset="utf-8"></script>
+  <script src="<?=HOST."/js/formularioScript.js"?>" charset="utf-8"></script>
 </head>
 <body>
   <!-- Navigation -->
@@ -106,6 +107,5 @@
         <button class="cadastro-input" type="button" id="enviar">Enviar Dados</button>
       </form>
     </div>
-    <script src="/js/formularioScript.js" charset="utf-8"></script>
   </body>
   </html>
