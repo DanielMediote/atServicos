@@ -17,7 +17,7 @@
   <?php include_once(ROOT.'/_slicesHTML/navigation.php');?>
 
   <div class="pagina">
-    <form class="formulario" action="index.html" method="post">
+  <form class="formulario" action="index.html" method="post">
       
     </form>
 

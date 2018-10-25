@@ -7,39 +7,14 @@ final class Conexao
   }
 
   public function open(){
-    if (!defined('user')) {
-      define('user', 'root');
-    }
-    if (!defined('host')) {
-      define('host', 'localhost');
-    }
-    if (!defined('pass')) {
-      define('pass', 'root');
-    }
-    if (!defined('data')) {
-      define('data', 'atServico');
-    }
-    if (!defined('port')) {
-      define('port', '3306');
-    }
-    if (!defined('base')) {
-      define('base', 'mysql');
-    }
+    define('user', 'root');
+    define('host', 'mysql');
+    define('pass', 'root');
+    define('data', 'atServico');
+    define('port', '3306');
     try {
-      switch (base) {
-        case 'mysql':
-        $conn = new PDO("mysql:dbname=".data."; host=".host."; port=".port, user, pass,
-        array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-        break;
-
-        case 'pgsql':
-        $conn = new PDO('pgsql:dbname=' . data . '; user=' . user . '; password=' . pass . '; host=' . host . '; port=' . port);
-        break;
-
-        case 'mssql':
-        $conn = new PDO('mssql:host=' . host . ',' . port . ';' . 'dbname=' . data, user, pass);
-        break;
-      }
+      $conn = new PDO("mysql:dbname=".data."; host=".host."; port=".port, user, pass,
+      array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
     } catch (PDOException $e) {
       echo "Erro " . $e->getMessage();
     }

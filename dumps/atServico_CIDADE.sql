@@ -18,7 +18,6 @@
 --
 -- Table structure for table `CIDADE`
 --
-USE atServico;
 
 DROP TABLE IF EXISTS `CIDADE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -51,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-02 20:25:41
+-- Dump completed on 2018-10-24 17:13:35

@@ -4,21 +4,23 @@ services:
     build:
       context: .
     # image: php:7.0-apache
-    container_name: web
+    container_name: portal-web
     ports:
       - "8080:80"
     volumes:
-      - "./portal:/var/www/html"
+      - ./portal:/var/www/html
     links:
       - mysql
     depends_on:
       - mysql
   mysql:
     image: mysql:5.7
-    container_name: mysql
+    container_name: portal-mysql
+    # command: --default-authentication-plugin=mysql_native_password
+    # restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "atServico"
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: atServico
     volumes:
       - ./dumps:/docker-entrypoint-initdb.d
       - data:/var/lib/mysql

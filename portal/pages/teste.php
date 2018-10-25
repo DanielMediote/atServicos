@@ -1,16 +1,18 @@
-<?php require_once '../config.php';?>
+<?php require_once '../config.php'; ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Pagina de Teste</title>
-	<?php
-	$pes = new Cliente();
-	$res = $pes->showCliente(26);
-	foreach ($res as $coluna => $value) {
-		echo "{$coluna} = {$value}<br>";
-	}
-	?>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Teste</title>
 </head>
 <body>
+    <?php 
+    
+    $teste = new Teste();
+    $res = $teste->getTableDetalhes();
+    var_dump($res);
+    ?>
 </body>
 </html>

@@ -16,7 +16,7 @@ abstract class Crud
 
 
   // public function insert(){
-  //   $colunaBase = $this->getTableDatails();
+  //   $colunaBase = $this->getTableDetalhes();
   //   $colunaClass = $this->getAll();
   //   $sqlQuery = "INSERT INTO {$this->tabela}(";
   //   foreach ($colunaBase as $coluna) {
@@ -39,7 +39,7 @@ abstract class Crud
   //   $stmp->execute();
   // }
 
-  public function getTableDatails(){
+  public function getTableDetalhes(){
     $sqlQuery = "DESCRIBE {$this->tabela};";
     // echo $sqlQuery."\n";
     $stmt = Conexao::prepare($sqlQuery);
