@@ -46,6 +46,7 @@ $(document).ready(function() {
         dados[name] = valor;
       });
     });
+
     dataForm.append('dados',JSON.stringify(dados));
     dataForm.append('file',$('#id_photo')[0].files[0]);
     $.ajax({
@@ -57,12 +58,12 @@ $(document).ready(function() {
     })
     .done(function(res) {
       console.log(res);
-      // location.reload();
     })
     .fail(function(res) {
       console.log("Error \n"+res);
     })
     .always(function() {
+      location.reload();
     });
   });
 });

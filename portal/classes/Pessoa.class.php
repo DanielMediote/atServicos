@@ -87,7 +87,7 @@ class Pessoa extends Crud
   }
 
   public function logarPessoa($nome, $senha){
-    $sqlQuery = "CALL logarPessoa('{$this->tabela}','{$nome}','{$senha}');";
+    $sqlQuery = "SELECT * FROM PESSOA WHERE usuario = '{$nome}' AND senha = '{$senha}';";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);

@@ -23,7 +23,6 @@ class Administrador extends Pessoa
 		JOIN ESTADO ON ESTADO.id = PESSOA.estado_id
 		JOIN CIDADE ON CIDADE.id = PESSOA.cidade_id
 		AND PESSOA.id = {$id};";
-		// echo $sqlQuery;
 		$stmt = Conexao::prepare($sqlQuery);
 		$stmt->execute();
 		return $stmt->fetch(PDO::FETCH_ASSOC);

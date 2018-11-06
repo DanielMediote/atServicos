@@ -14,6 +14,10 @@
       <ul>
         <?php if (!$_SESSION['status']): ?>
           <li><a href='/cadastro/cliente'>Seja um Cliente</a></li>
+        <?php else: ?>
+          <li><a href='#'>Item I</a></li>
+          <li><a href='#'>Item II</a></li>
+          <li><a href='#'>Item III</a></li>
         <?php endif; ?>
         <?php if ($_SESSION['ocupacao']=="Administrador"): ?>
           <li><a href='/admin/cadastro/prestador'>Adicionar Prestador</a></li>

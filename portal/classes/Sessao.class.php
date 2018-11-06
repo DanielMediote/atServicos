@@ -7,9 +7,6 @@
 */
 final class Sessao{
 
-  function __construct()
-  {
-  }
 
   public static function open()
   {

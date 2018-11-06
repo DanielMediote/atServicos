@@ -7,41 +7,11 @@ abstract class Crud
   READ
   UPDATE
   DELETE
-
-  @name Manipulador De Dados
-  @author Daniel José Bispo
-  @access public
   */
   abstract public function insert();
 
-
-  // public function insert(){
-  //   $colunaBase = $this->getTableDetalhes();
-  //   $colunaClass = $this->getAll();
-  //   $sqlQuery = "INSERT INTO {$this->tabela}(";
-  //   foreach ($colunaBase as $coluna) {
-  //     if (in_array($coluna['Field'], $colunaClass)==False) {
-  //       $sqlQuery .= $coluna['Field'];
-  //       $sqlQuery .= ($coluna['Filed'] != end($colunaBase))? ", " : "";
-  //     }
-  //   }
-  //   $sqlQuery .= ") VALUES(";
-  //   foreach ($this->getAll() as $key => $value) {
-  //     if (in_array($key, array('tabela', 'id', 'id_pessoa', 'ocupacao'))) continue;
-  //     $type = gettype($value);
-  //     $sqlQuery .= (in_array($type, array('integer', 'double', 'boolean'))) ?
-  //     "{$value}" : "'{$value}'";
-  //     $sqlQuery .= ($value != end($this->getAll()))? ", " : "";
-  //   }
-  //   $sqlQuery .= ");";
-  //   echo $sqlQuery."\n";
-  //   $stmp = Conexao::prepare($sqlQuery);
-  //   $stmp->execute();
-  // }
-
   public function getTableDetalhes(){
     $sqlQuery = "DESCRIBE {$this->tabela};";
-    // echo $sqlQuery."\n";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -52,7 +22,6 @@ abstract class Crud
     $sqlQuery = "DELETE {$this->tabela} WHERE {$coluna} = ";
     $sqlQuery .= (in_array($type, array('integer', 'boolean', 'double')))?
     "{$valor};": "'{$valor}';" ;
-    // echo $sqlQuery."\n";
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
@@ -75,7 +44,6 @@ abstract class Crud
     }
     $sqlQuery .= $set;
     $sqlQuery .= " WHERE {$coluna} = {$valor}";
-    // echo $sqlQuery."\n";
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
@@ -91,7 +59,6 @@ abstract class Crud
     $sqlQuery .= (in_array($typeCampoValue, array('integer', 'double', 'boolean'))) ?
     "{$campoValue}" : "'{$campoValue}'";
     $sqlQuery .= ";";
-    // echo $sqlQuery."\n";
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
@@ -138,7 +105,6 @@ abstract class Crud
     $sqlQuery .= (in_array($type, array('integer', 'double', 'boolean'))) ?
     "{$campo}" : "'{$valorCampo}'";
     $sqlQuery .= ";";
-    // echo $sqlQuery;
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC)[$coluna];

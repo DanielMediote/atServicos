@@ -20,6 +20,9 @@
     </div>
   </header>
   <div class="page-body-1">
+    <?php
+    echo $_SESSION['status'];
+    ?>
 
   </div>
 </body>
