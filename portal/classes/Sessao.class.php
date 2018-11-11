@@ -13,18 +13,17 @@ final class Sessao{
     session_start();
   }
 
-  public static function setSessionData($dados)
-  {
+  public static function setSessionData($dados){
     $_SESSION['status'] = True;
     foreach ($dados as $key => $value) {
       $_SESSION[$key] = $value;
     }
   }
 
-  public static function unsetSessionDate($pessoa)
-  {
+  public static function unsetSessionDate(){
     $_SESSION['status'] = False;
-    foreach ($pessoa->getAll() as $key => $value) {
+    foreach ($_SESSION as $key => $value) {
+      // if($key == "status") continue;
       unset($_SESSION[$key]);
     }
   }

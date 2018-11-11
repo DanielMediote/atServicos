@@ -2,103 +2,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="../img/icon/task.png" type="image/svg+xml"/>
-  <title>Novo Cliente</title>
-  <link rel="stylesheet" href="../css/cadastro.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script src="../js/jquery.mask.js" charset="utf-8"></script>
-  <script src="../js/formularioScript.js" charset="utf-8"></script>
+  <?php require_once LINKS; ?>
 </head>
 <body>
-
   <!-- Navigation -->
-  <?php include_once(ROOT.'/_slicesHTML/navigation.php');?>
-
-  <!-- Formulário -->
-  <div class="pagina">
-    <form id="formulario" class="" method="post" enctype="multipart/form-data">
-      <div class="input-group">
-        <h2>Resgistro de Clientes</h2>
-        <label for="">Imagem de Perfil</label>
-        <input type="file" name="foto" id="id_photo" value="">
-        <script type="text/javascript">
-        var inputAddphoto = '<div class="upload-photo">'+
-        '<i style="margin-left: 17px; margin-top: 22px;"'+
-        'class="fas fa-user fa-6x"></i></div>',
-        inputphoto = $('#id_photo');
-        inputphoto.before(inputAddphoto);
-        $('.upload-photo').on('click', function() {
-          $(this).siblings('#id_photo').trigger('click');
-        });
-        inputphoto.on('change', function(){
-          var input = $(this),
-          reader = new FileReader();
-          reader.onload = function (e) {
-            input.siblings('.upload-photo').css('background-image', 'url(' + e.target.result + ')');
-          };
-          reader.readAsDataURL(this.files[0]);
-        });
-        </script>
-        <label for="">Nome Completo</label>
-        <input class="cadastro-input" type="text" name="nome" value="" maxlength="50" size="50">
-        <i class="fa fa-user"><div class="linha"></div></i>
-
-        <label for="">E-mail</label>
-        <input class="cadastro-input" type="text" name="email" value="" maxlength="50" size="50">
-        <i class="fa fa-envelope"><div class="linha"></div></i>
-
-        <label for="">Usuario</label>
-        <input class="cadastro-input" type="text" name="usuario" value="" placeholder="Digite um nome como usuario" maxlength="30" size="30">
-        <i class="fa fa-user-circle"><div class="linha"></div></i>
-
-        <label for="">Senha</label>
-        <input class="cadastro-input" type="password" name="senha" value="" placeholder="Digite uma senha" maxlength="30" size="30">
-        <i class="fa fa-key"><div class="linha"></div></i>
-
-        <label for="">Telefone</label>
-        <input class="cadastro-input" type="text" name="telefone" value="" maxlength="14" size="15">
-        <i class="fa fa-phone"><div class="linha"></div></i>
-
-        <label for="">CPF</label>
-        <input class="cadastro-input" type="text"  name="cpf" value="" maxlength="11" size="15">
-        <i class="fa fa-address-card"><div class="linha"></div></i>
-
-
+  <?php include_once(ROOT.'/_slicesHTML/navbar.php');?>
+  <?php if (isset($_SESSION['status'])): ?>
+    <div class="fixed-bottom mb-5 text-center">
+      <a class="btn btn-muted" href="/conta/configuracao">
+        <h2>
+          Ir para pagina de Perfil
+          <i class="fas fa-user-alt"></i>
+        </h2>
+      </a>
+    </div>
+  <?php else: ?>
+    <div class="container px-2 mt-4">
+      <h3 class="title">Registro de Cliente</h3>
+      <!-- Formulário -->
+      <form class="mb-5 mt-5 formulario">
+        <div class="form-row">
+          <div class="form-group col-md-5">
+            <label for="">Nome Completo *</label>
+            <input type="email" class="form-control" name="nome">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="">Usuario *</label>
+            <input type="text" class="form-control" name="usuario">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="">Senha *</label>
+            <input type="password" class="form-control" name="senha">
+          </div>
+          <div class="form-group col-md-5">
+            <label for="">E-mail *</label>
+            <input type="text" class="form-control" name="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="">Genero</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="genero" id="masculino" value="M" checked>
+            <label class="form-check-label" for="masculino">
+              Masculino
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="genero" id="famenino" value="F">
+            <label class="form-check-label" for="famenino">
+              Femenino
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="genero" id="outro" value="O">
+            <label class="form-check-label" for="outro">
+              Outro
+            </label>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="">Telefone *</label>
+            <input type="text" class="form-control" name="telefone">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="">CPF (opcional)</label>
+            <input type="text" class="form-control" name="cpf">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="">Foto (opcional)</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="file">
+                <label class="custom-file-label" for="file"></label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php
+        $estado = new Estado();
+        $brasil = array('Norte','Sul','Centro-Oeste', 'Sudeste', 'Nordeste');
+        ?>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="">Estado</label>
+            <select id="estado" class="form-control" onchange="loadCidades()" name="estado_id">
+              <option value="0" selected>Selecionar...</option>
+              <?php foreach ($brasil as $key => $regiao): ?>
+                <optgroup label="<?=$regiao?>">
+                  <?php foreach ($estado->readPerRegion($regiao) as $key => $tupla): ?>
+                    <option value="<?=$tupla['id']?>"><?=$tupla['nome'];?></option>
+                  <?php endforeach; ?>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+              <label for="">Estado</label>
+              <select id="cidade" class="form-control" name="cidade_id">
+                <option value="0" selected>Selecionar...</option>
+                <option>...</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="termos" onclick="check_termos()">
+              <label class="form-check-label" for="termos">
+                Li e Concordo com a <a href="#termos">Termos de Uso</a>.
+              </label>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success disabled" id="btn_enviar">Cadastrar</button>
+          <button type="reset" class="btn btn-warning">Limpar Dados</button>
+        </form>
       </div>
-      <label id="select" for="">Genero</label>
-      <select class="" name="genero">
-        <option value="" selected default hidden>Genero</option>
-        <option value="M">Masculino</option>
-        <option value="F">Femenino</option>
-      </select>
-      <?php
-      $estado = new Estado();
-      $brasil = array('Norte','Sul','Centro-Oeste', 'Sudeste', 'Nordeste');
-      ?>
-      <label id="select" for="">Logadouro</label>
-      <div class="input-group-col">
-        <select class="" name="estado_id" id="estado" onchange="loadCidades()">
-          <option value="" selected disabled hidden>Selecionar o Estado...</option>
-          <?php foreach ($brasil as $key => $regiao): ?>
-            <optgroup label="<?=$regiao?>">
-              <?php foreach ($estado->readPerRegion($regiao) as $key => $tupla): ?>
-                <option value="<?=$tupla['id']?>"><?=$tupla['nome'];?></option>
-              <?php endforeach; ?>
-            <?php endforeach; ?>
-          </optgroup>
-        </select>
-        <select class="" name="cidade_id" id="cidade">
-          <option value="" hidden>Selecione o Estado...</option>
-        </select>
-      </div>
-      <div class="termos">
-        <input type="checkbox" id="terms" value="" name="checkbox" onclick="prosseguir()">Eu li e concordo com <u>Termos de Política e Privacidade</u>.
-      </div>
-      <button class="cadastro-input" type="button" id="enviar">Cadastrar-se</button>
-    </form>
-  </div>
-</body>
-</html>
+    <?php endif; ?>
+    <?php include_once(ROOT.'/_slicesHTML/footer.php'); ?>
+  </body>
+  </html>
