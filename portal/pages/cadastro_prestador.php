@@ -1,26 +1,17 @@
 <?php require '../config.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <?php require_once LINKS; ?>
-</head>
+<?php require_once HEAD; ?>
 <body>
   <!-- Navigation -->
   <?php include_once(ROOT.'/_slicesHTML/navbar.php');?>
-  <?php if (isset($_SESSION['status'])): ?>
-    <div class="fixed-bottom mb-5 text-center">
-      <a class="btn btn-muted" href="/conta/configuracao">
-        <h2>
-          Ir para pagina de Perfil
-          <i class="fas fa-user-alt"></i>
-        </h2>
-      </a>
-    </div>
+  <?php if (isset($_SESSION['status'])):?>
+    <script type="text/javascript">
+      location.href = "http://localhost:8080";
+    </script>
   <?php else: ?>
     <div class="container px-2 mt-4">
-      <h3 class="title">Registro de Cliente</h3>
+      <h3 class="title">Registro de Prestador</h3>
       <!-- Formulário -->
-      <form class="mb-5 mt-5 formulario">
+      <form class="mb-5 mt-5 formulario" id="cadastro-form">
         <div class="form-row">
           <div class="form-group col-md-5">
             <label for="">Nome Completo *</label>
@@ -65,11 +56,11 @@
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="">Telefone *</label>
-            <input type="text" class="form-control" name="telefone">
+            <input type="text" class="form-control telefone" name="telefone">
           </div>
           <div class="form-group col-md-3">
-            <label for="">CPF (opcional)</label>
-            <input type="text" class="form-control" name="cpf">
+            <label for="">CPNJ (opcional)</label>
+            <input type="text" class="form-control cpnj" name="cpnj">
           </div>
         </div>
         <div class="form-row">
@@ -89,7 +80,7 @@
         ?>
         <div class="form-row">
           <div class="form-group col-md-3">
-            <label for="">Estado</label>
+            <label for="">Estado (opcional)</label>
             <select id="estado" class="form-control" onchange="loadCidades()" name="estado_id">
               <option value="0" selected>Selecionar...</option>
               <?php foreach ($brasil as $key => $regiao): ?>
@@ -101,7 +92,7 @@
               </select>
             </div>
             <div class="form-group col-md-3">
-              <label for="">Estado</label>
+              <label for="">Estado (opcional)</label>
               <select id="cidade" class="form-control" name="cidade_id">
                 <option value="0" selected>Selecionar...</option>
                 <option>...</option>

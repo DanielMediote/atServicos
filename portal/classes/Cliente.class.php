@@ -7,16 +7,11 @@ class Cliente extends Pessoa
 	protected $id_pessoa;
 	protected $cpf;
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	public function insert()
-	{
-		$sqlQuery = "INSERT INTO CLIENTE(cpf) VALUES(:cpf);";
+	public function insert(){
+		$sqlQuery = "INSERT INTO CLIENTE(cpf, id_pessoa) VALUES(:cpf, :id_pessoa);";
 		$stmt = Conexao::prepare($sqlQuery);
 		$stmt->bindParam(":cpf",$this->cpf, PDO::PARAM_STR, 45);
+		$stmt->bindParam(":id_pessoa",$this->id_pessoa, PDO::PARAM_STR, 45);
 		$stmt->execute();
 	}
 

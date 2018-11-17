@@ -28,10 +28,10 @@ class Pessoa extends Crud
 
   public function insert(){
     $sqlQuery = "INSERT INTO PESSOA(
-      nome, email, telefone, usuario, senha, genero, foto, cidade_id, estado_id
+      nome, email, telefone, usuario, senha, genero, foto, cidade_id, estado_id, ocupacao
     )
     VALUES (
-      :nome,:email,:telefone,:usuario,:senha,:genero,:foto,:cidade_id,:estado_id
+      :nome,:email,:telefone,:usuario,:senha,:genero,:foto,:cidade_id,:estado_id, :ocupacao
     );";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->bindParam(":nome",$this->nome, PDO::PARAM_STR, 45);
@@ -39,6 +39,7 @@ class Pessoa extends Crud
     $stmt->bindParam(":usuario",$this->usuario, PDO::PARAM_STR, 45);
     $stmt->bindParam(":senha",$this->senha, PDO::PARAM_STR, 45);
     $stmt->bindParam(":telefone",$this->telefone, PDO::PARAM_STR, 45);
+    $stmt->bindParam(":ocupacao",$this->ocupacao, PDO::PARAM_STR, 45);
     $stmt->bindParam(":genero",$this->genero, PDO::PARAM_STR, 1);
     $stmt->bindParam(":foto",$this->foto, PDO::PARAM_LOB);
     $stmt->bindParam(":cidade_id",$this->cidade_id, PDO::PARAM_INT);
@@ -69,21 +70,24 @@ class Pessoa extends Crud
     $exeptColumns = array('tabela','id', 'id_pessoa', 'senha', 'foto', 'cidade_id', 'estado_id', 'ocupacao');
     $sqlQuery = "SELECT ";
     foreach ($this->getAll() as $key => $value) {
-      if(in_array($key, $exeptColumns)) continue;
-      $sqlQuery .= "{$this->tabela}.{$key}, ";
+      if(in_array($key, $exeptColumns)){
+        continue;
+      }else {
+        $sqlQuery .= "{$this->tabela}.{$key}, ";
+      }
     }
     $sqlQuery .=
     "
     CIDADE.nome AS cidade,
     ESTADO.nome AS estado
     FROM {$this->tabela}
-    JOIN CIDADE ON CIDADE.id = CLIENTE.cidade_id
-    JOIN ESTADO ON ESTADO.id = CLIENTE.estado_id
+    JOIN CIDADE ON CIDADE.id = PESSOA.cidade_id
+    JOIN ESTADO ON ESTADO.id = PESSOA.estado_id
     WHERE id_pessoa = {$id};";
     echo $sqlQuery;
-    $stmt = Conexao::prepare($sqlQuery);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // $stmt = Conexao::prepare($sqlQuery);
+    // $stmt->execute();
+    // return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
   public function logarPessoa($nome, $senha){

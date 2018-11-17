@@ -1,10 +1,6 @@
 <?php
 
-final class Conexao
-{
-
-  public function __construct(){
-  }
+final class Conexao{
 
   public function open(){
     define('user', 'root');

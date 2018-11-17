@@ -5,10 +5,6 @@ class Administrador extends Pessoa
 
   protected $tabela = "ADMINISTRADOR";
 
-  function __construct(){
-    parent::__construct();
-  }
-
   public function showAdmin($id){
     $sqlQuery = "SELECT
 		PESSOA.nome,

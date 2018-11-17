@@ -9,15 +9,9 @@ class Prestador extends Pessoa
 	protected $id;
 	protected $id_pessoa;
 	protected $cpnj;
-	protected $id_servico;
+	protected $qte_servicos;
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
-	public function showPrestador($id)
-	{
+	public function showPrestador($id){
 		$sqlQuery = "SELECT
 		PESSOA.nome,
 		PESSOA.email,
@@ -38,11 +32,11 @@ class Prestador extends Pessoa
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
-	public function insert()
-	{
-		$sqlQuery = "INSERT INTO PRESTADOR(cpnj) VALUES(:cpnj);";
+	public function insert(){
+		$sqlQuery = "INSERT INTO PRESTADOR(cpnj, id_pessoa) VALUES(:cpnj, :id_pessoa);";
 		$stmt = Conexao::prepare($sqlQuery);
 		$stmt->bindParam(":cpnj",$this->cpnj, PDO::PARAM_STR, 45);
+		$stmt->bindParam(":id_pessoa",$this->id_pessoa, PDO::PARAM_STR, 45);
 		$stmt->execute();
 	}
 }

@@ -8,8 +8,7 @@
 final class Sessao{
 
 
-  public static function open()
-  {
+  public static function open(){
     session_start();
   }
 
@@ -26,6 +25,19 @@ final class Sessao{
       // if($key == "status") continue;
       unset($_SESSION[$key]);
     }
+  }
+
+  /**
+   * Atualiza os dados da Sessao
+   *
+   * Undocumented function long description
+   *
+   * @param Type $var Description
+   * @return type
+   * @throws conditon
+   **/
+  public function updateSession(){
+    # code...
   }
 
 }

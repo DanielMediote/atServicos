@@ -10,45 +10,56 @@ abstract class Crud
   */
   abstract public function insert();
 
-  public function getTableDetalhes(){
+  public function getTableDetalhes()
+  {
     $sqlQuery = "DESCRIBE {$this->tabela};";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function delete($coluna, $valor){
+  public function delete($coluna, $valor)
+  {
     $type = gettype($valor);
-    $sqlQuery = "DELETE {$this->tabela} WHERE {$coluna} = ";
-    $sqlQuery .= (in_array($type, array('integer', 'boolean', 'double')))?
-    "{$valor};": "'{$valor}';" ;
+    $sqlQuery = "DELETE FROM {$this->tabela} WHERE {$coluna} = ";
+    $sqlQuery .= (in_array($type, array('integer', 'boolean', 'double'))) ?
+    "{$valor};" : "'{$valor}';";
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
 
-  public function updateAll($coluna, $valor){
+  public function updateAll($coluna, $valor)
+  {
     $sqlQuery = "UPDATE {$this->tabela} SET ";
     $colunaObj = $this->getAll();
     $set = "";
     foreach ($colunaObj as $key => $value) {
-      if ($value==NULL) continue;
-        $colunaSetted[$key] = $value;
+      if ($value == null) {
+        continue;
+      }
+
+      $colunaSetted[$key] = $value;
     }
     foreach ($colunaSetted as $key => $value) {
-      if (in_array($key, array('tabela', 'id', 'id_pessoa'))) continue;
+      if (in_array($key, array('tabela', 'id', 'id_pessoa'))) {
+        continue;
+      }
+
       $set .= "{$key} = ";
       $type = gettype($value);
       $set .= (in_array($type, array('integer', 'double', 'boolean'))) ?
       "{$value}" : "'{$value}'";
-      $set .= ($key != end(array_keys($colunaSetted)))? ", " : " ";
+      $set .= ($key != end(array_keys($colunaSetted))) ? ", " : " ";
     }
     $sqlQuery .= $set;
     $sqlQuery .= " WHERE {$coluna} = {$valor}";
+    var_dump($sqlQuery . "\n");
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
 
-  public function updateOne($coluna, $valor, $campoIdentity, $campoValue){
+  public function updateOne($coluna, $valor, $campoIdentity, $campoValue)
+  {
     $typeValor = gettype($valor);
     $typeCampoValue = gettype($campoValue);
     $sqlQuery = "UPDATE {$this->tabela} ";
@@ -59,18 +70,21 @@ abstract class Crud
     $sqlQuery .= (in_array($typeCampoValue, array('integer', 'double', 'boolean'))) ?
     "{$campoValue}" : "'{$campoValue}'";
     $sqlQuery .= ";";
+    var_dump($sqlQuery . "\n");
     $stmp = Conexao::prepare($sqlQuery);
     $stmp->execute();
   }
 
-  public function readAll(){
+  public function readAll()
+  {
     $sqlQuery = "SELECT * FROM {$this->tabela};";
     $stmt = Conexao::prepare($sqlQuery);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function get($atributo){
+  public function get($atributo)
+  {
     if (isset($atributo)) {
       return $this->$atributo;
     } else {
@@ -78,28 +92,36 @@ abstract class Crud
     }
   }
 
-  public function getAll(){
+  public function getAll()
+  {
     return get_object_vars($this);
   }
 
-  public function getDetalhes(){
+  public function getDetalhes()
+  {
     foreach ($this->getAll() as $key => $value) {
-      echo "[".$key."] = ". $value ."\n";
+      echo "[" . $key . "] = " . $value . "\n";
     }
   }
 
-  public function set($atributo, $valor){
+  public function set($atributo, $valor)
+  {
     return $this->$atributo = $valor;
   }
 
-  public function setAll($dados){
+  public function setAll($dados)
+  {
     foreach ($this->getAll() as $atributo => $value) {
-      if (in_array($atributo, array('tabela', 'id', 'id_pessoa', 'ocupacao'))) continue;
-      $this->set($atributo,$dados[$atributo]);
+      if (in_array($atributo, array('tabela', 'id', 'id_pessoa'))) {
+        continue;
+      }
+
+      $this->set($atributo, $dados[$atributo]);
     }
   }
 
-  public function searchCampoByValor($campo, $valorCampo, $coluna){
+  public function searchCampoByValor($campo, $valorCampo, $coluna)
+  {
     $type = gettype($valorCampo);
     $sqlQuery = "SELECT * FROM {$this->tabela} WHERE {$campo} = ";
     $sqlQuery .= (in_array($type, array('integer', 'double', 'boolean'))) ?
@@ -110,6 +132,23 @@ abstract class Crud
     return $stmt->fetch(PDO::FETCH_ASSOC)[$coluna];
   }
 
-}
+  /**
+  * Confere se existe no banco de Dados
+  *
+  * Retorna um Boolean
+  *
+  * @param mixed
+  * @return boolean
+  * @throws conditon
+  **/
+  public function checkExistData($campo, $valor)
+  {
+    $query = "SELECT * FROM {$this->tabela} WHERE {$campo} = ";
+    $type = gettype($valor);
+    $query .= ($type == 'string')? "'{$valor}'" : $valor;
+    $stmp = Conexao::prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
 
-?>
+}

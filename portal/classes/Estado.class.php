@@ -15,11 +15,6 @@ class Estado extends Crud{
   protected $uf;
   protected $regiao;
 
-
-  function __construct(){
-    // echo "Estado instânciado";
-  }
-
   public function insert(){}
 
   public function readAll(){

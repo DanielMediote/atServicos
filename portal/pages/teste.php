@@ -1,15 +1,15 @@
 <?php require_once '../config.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pagina de Testes</title>
-    <?php require_once LINKS; ?>
+<?php require_once HEAD; ?>
 </head>
 <body>
-    <?php
-    ?>
+  <?php
+  $contrato = new Contrato();
+  $rows = $contrato->listarLimiteContratosCliente(3, 8);
+  print($rows);
+  // foreach ($contrato->listarLimiteContratosCliente(3, 8) as $key => $value) {
+  //
+  // }
+
+  ?>
 </body>
 </html>
