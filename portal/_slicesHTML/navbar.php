@@ -23,7 +23,7 @@
         <div class="dropdown-menu">
           <a class="dropdown-item" href="/conta/perfil">Meu Perfil</a>
           <?php if ($_SESSION['ocupacao'] == "Prestador"): ?>
-            <a class="dropdown-item" href="#">Pedidos</a>
+            <!-- <a class="dropdown-item" href="#">Pedidos</a> -->
           <?php else: ?>
             <a class="dropdown-item" href="/servicos">Contratar Serviço</a>
           <?php endif; ?>

@@ -151,7 +151,7 @@
                       <label for="">Categoria</label>
                     </div>
                     <?php
-                    $categoria = array('Assistência','Tecnologia e Segurança','Comunicações','Indústria e Comércio','Turismo');
+                    $categoria = array('Assistência','Tecnologia e Segurança','Comunicações','Indústria e Comércio','Turismo', 'Serviços Afins', 'Concertos e Manutenções');
                     ?>
                     <div class="input-group input-group-sm mb-4 col-6 input-row">
                       <select class="custom-select" name="categoria">
